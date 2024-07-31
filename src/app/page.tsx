@@ -38,9 +38,7 @@ export default function Home() {
               <img src="menu.svg" alt="help" />
             </button>
             <div className="h-auto w-px bg-gray-500 flex-1 mx-1"></div>
-            <button className="rounded-full w-10 h-10 bg-purple_sensedia mr-4">
-              UN
-            </button>
+
             <MenuDropDownMenu />
           </div>
         </div>
