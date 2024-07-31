@@ -10,6 +10,9 @@ const config: Config = {
     fontFamily: {
       sans: ["Inter", "sans-serif"],
     },
+    cursor: {
+      trash: 'url("/trash.svg"), auto',
+    },
     container: {
       center: true,
       padding: "2rem",
