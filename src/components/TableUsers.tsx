@@ -82,7 +82,6 @@ export default function TableUsers() {
               };
             })
           );
-          console.log(usersData);
           setUsers(usersData);
         } else {
           throw new Error("Invalid data structure");
@@ -125,8 +124,8 @@ export default function TableUsers() {
 
   if (loading) {
     return (
-      <div className="text-black text-xl flex justify-center items-center pt-20 h-80">
-        <img src="loader.svg" alt="loader" />
+      <div className="text-black text-xl flex justify-center items-center pt-20 h-96">
+        <img src="loader.svg" alt="loader" loading="lazy" />
       </div>
     );
   }
@@ -184,9 +183,7 @@ export default function TableUsers() {
           Loading...
         </div>
       ) : users.length === 0 ? (
-        <div className="text-black text-xl flex justify-center items-center pt-20 h-80">
-          No data available.
-        </div>
+        <SkeletonTable />
       ) : (
         <div className="flex justify-center text-sm h-full pt-8 flex-col items-center bg-white pb-2 top-10">
           <h1 className="text-2xl font-bold text-black pb-4 w-3/4">Users</h1>
@@ -288,5 +285,57 @@ export default function TableUsers() {
         </div>
       )}
     </>
+  );
+}
+
+function SkeletonTable() {
+  return (
+    <div className="flex justify-center text-sm h-full pt-8 flex-col items-center bg-white pb-2 top-10">
+      <h1 className="text-2xl font-bold text-black pb-4 w-3/4">Users</h1>
+      <input
+        type="text"
+        className="h-8 rounded-t-sm text-black border-gray-300 border-b-2 mb-4 w-3/4 bg-gray-100 p-2 focus: outline-none"
+      />
+      <div className="w-3/4 h-96 overscroll-y-none overflow-y-auto ">
+        <table className="w-full">
+          <thead className="sticky top-0 bg-white z-10  ">
+            <tr className="text-gray-500">
+              <th className="px-2.5 py-4 text-left">USER</th>
+              <th className="px-2.5 py-4 text-left">NAME</th>
+              <th className="px-2.5 py-4 text-left">E-MAIL</th>
+              <th className="px-2.5 py-4 text-left">CITY</th>
+              <th className="px-2.5 py-4 text-left">DAYS OF WEEK</th>
+              <th className="px-2.5 py-4 text-left">ALBUMS</th>
+              <th className="px-2.5 py-4 text-left">POSTS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className=" border-b-2 border-b-gray-300 items-center ">
+              <td className="px-2.5 py-2 text-black cursor-trash text-left">
+                100
+              </td>
+              <td className="px-2.5 py-2 text-gray-500 text-left">
+                Javier Cisneros
+              </td>
+              <td className="px-2.5 py-2 text-gray-500 text-left">
+                fjca185@gmail.com
+              </td>
+              <td className="px-2.5 py-2 text-gray-500 text-left">
+                Guadalajara
+              </td>
+              <td className="px-2.5 py-2 text-gray-500 text-left">Weekends</td>
+              <td className="px-2.5 py-2 text-gray-500 text-center">10</td>
+              <td className="px-2.5 py-2 text-gray-500 text-center">10</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div className="text-black text-sm flex  items-center pt-20 justify-start w-3/4">
+        Total 100
+      </div>
+      <div className="flex space-x-2 mt-2 text-xl pb-4">
+        <button className="active text-black"></button>
+      </div>
+    </div>
   );
 }

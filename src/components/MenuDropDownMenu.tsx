@@ -19,7 +19,10 @@ export default function MenuDropDownMenu() {
   }, []);
 
   return (
-    <div className="relative pr-8 w-48" id="dropdownButton">
+    <div
+      className="relative w-48 border-l-2 border-gray-300 border-solid"
+      id="dropdownButton"
+    >
       <button
         type="button"
         onClick={() => {

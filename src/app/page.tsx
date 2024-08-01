@@ -7,7 +7,7 @@ import FormUsers from "../components/FormUsers";
 export default function Home() {
   return (
     <>
-      <header className="sticky top-0 z-20 w-full ">
+      <header className="sticky top-0 z-20 w-full">
         <div className="bg-first_header h-18 w-full flex items-center justify-center md:justify-start">
           <Image
             src="/sensedia_train.svg"
@@ -33,10 +33,10 @@ export default function Home() {
           </div>
           <div className="flex items-center">
             <button className="m-2">
-              <img src="question.svg" alt="help" />
+              <img src="question.svg" alt="help" loading="lazy" />
             </button>
             <button className="m-2 pr-6">
-              <img src="menu.svg" alt="menu" />
+              <img src="menu.svg" alt="menu" loading="lazy" />
             </button>
             <div className="h-auto w-px bg-gray-500 mx-1"></div>
             <MenuDropDownMenu />
