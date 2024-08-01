@@ -1,10 +1,12 @@
 "use client";
-import React, { useState, useEffect } from "react";
 
+import React, { useState, useEffect } from "react";
 interface User {
   id: number;
   name: string;
   email: string;
+  postsCount?: number;
+  albumsCount?: number;
 }
 
 export default function TableUsers() {
@@ -14,34 +16,61 @@ export default function TableUsers() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchedVal, setSearchedVal] = useState("");
+  //env variable
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchUsersData = async () => {
       try {
-        const response = await fetch("http://localhost:8080/api/v1/users");
+        const response = await fetch(`${API_BASE_URL}/users`);
         if (!response.ok) {
           throw new Error(`Failed to fetch data: ${response.statusText}`);
         }
-        console.log(response);
         const json = await response.json();
         if (json.users && Array.isArray(json.users)) {
-          setUsers(json.users);
+          const usersData = await Promise.all(
+            json.users.map(async (user: User) => {
+              const [postsResponse, albumsResponse] = await Promise.all([
+                fetch(`${API_BASE_URL}/users/${user.id}/posts`),
+                fetch(`${API_BASE_URL}/users/${user.id}/albums`),
+              ]);
+
+              if (!postsResponse.ok || !albumsResponse.ok) {
+                throw new Error("Failed to fetch posts or albums");
+              }
+
+              const postsJson = await postsResponse.json();
+              const albumsJson = await albumsResponse.json();
+
+              // Extract the posts and albums array from the response object
+              const posts = postsJson.posts || [];
+              const albums = albumsJson.albums || [];
+
+              return {
+                ...user,
+                postsCount: posts.length,
+                albumsCount: albums.length,
+              };
+            })
+          );
+          setUsers(usersData);
         } else {
           throw new Error("Invalid data structure");
         }
-      } catch (error: any) {
-        setError(error.message);
+      } catch (error) {
+        throw new Error(`Failed to fetch data`);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchUsers();
+    fetchUsersData();
   }, []);
 
   ///function to delete user
   const deleteUser = async (id: number) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/v1/users/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/users/${id}`, {
         method: "DELETE",
       });
       if (!response.ok) {
@@ -66,7 +95,7 @@ export default function TableUsers() {
 
   if (loading) {
     return (
-      <div className="text-black text-xl flex justify-center items-center pt-20">
+      <div className="text-black text-xl flex justify-center items-center pt-20 h-80">
         Loading...
       </div>
     );
@@ -120,83 +149,106 @@ export default function TableUsers() {
           </div>
         </div>
       </div>
-      <div className="flex justify-center text-sm h-full pt-8 flex-col items-center bg-white pb-2 top-10">
-        <h1 className="text-2xl font-bold text-black pb-4 w-3/4">Users</h1>
-        <input
-          type="text"
-          className="h-8 rounded-t-sm text-black border-gray-300 border-b-2 mb-4 w-3/4 bg-gray-200 p-2 focus: outline-none"
-          onChange={(e) => setSearchedVal(e.target.value)}
-          placeholder="Search"
-        />
-        <div className="w-3/4 h-96 overscroll-y-none overflow-y-auto ">
-          <table className="w-full table-fixed">
-            <div className="h-px border-gray-300 border-solid " />
-            <thead className="sticky top-0 bg-white z-10">
-              <tr className="text-gray-500">
-                <th className="px-2.5 py-4">USER</th>
-                <th className="px-2.5 py-4">NAME</th>
-                <th className="px-2.5 py-4">E-MAIL</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredUsers.map((user) => (
-                <tr key={user.id} className=" border-b-2 border-b-gray-300 ">
-                  <button
-                    className="cursor-trash"
-                    //onclick show confirm dialog
-                    onClick={() => {
-                      const confirmDialog =
-                        document.getElementById("confirmDialog");
-                      if (confirmDialog) {
-                        confirmDialog.classList.toggle("hidden");
-                      }
-                      const confirmDeleteBtn =
-                        document.getElementById("confirm-delete-btn");
-                      if (confirmDeleteBtn) {
-                        confirmDeleteBtn.onclick = () => {
-                          deleteUser(user.id);
-                          if (confirmDialog) {
-                            confirmDialog.classList.toggle("hidden");
-                          }
-                        };
-                      }
-                      const confirmCancelBtn =
-                        document.getElementById("confirm-cancel-btn");
-                      if (confirmCancelBtn) {
-                        confirmCancelBtn.onclick = () => {
-                          if (confirmDialog) {
-                            confirmDialog.classList.toggle("hidden");
-                          }
-                        };
-                      }
-                    }}
-                  >
-                    <td className="px-2.5 py-2 text-black">{user.id}</td>
-                  </button>
-                  <td className="px-2.5 py-2 text-gray-500">{user.name}</td>
-                  <td className="px-2.5 py-2 text-gray-500">{user.email}</td>
+      {loading ? (
+        <div className="text-black text-xl flex justify-center items-center pt-20">
+          Loading...
+        </div>
+      ) : users.length === 0 ? (
+        <div className="text-black text-xl flex justify-center items-center pt-20 h-80">
+          No data available.
+        </div>
+      ) : (
+        <div className="flex justify-center text-sm h-full pt-8 flex-col items-center bg-white pb-2 top-10">
+          <h1 className="text-2xl font-bold text-black pb-4 w-3/4">Users</h1>
+          <input
+            type="text"
+            className="h-8 rounded-t-sm text-black border-gray-300 border-b-2 mb-4 w-3/4 bg-gray-100 p-2 focus: outline-none"
+            onChange={(e) => setSearchedVal(e.target.value)}
+            placeholder="Search"
+          />
+          <div className="w-3/4 h-96 overscroll-y-none overflow-y-auto ">
+            <table className="w-full">
+              <thead className="sticky top-0 bg-white z-10  ">
+                <tr className="text-gray-500">
+                  <th className="px-2.5 py-4 text-left">USER</th>
+                  <th className="px-2.5 py-4 text-left">NAME</th>
+                  <th className="px-2.5 py-4 text-left">E-MAIL</th>
+                  <th className="px-2.5 py-4 text-left">ALBUMS</th>
+                  <th className="px-2.5 py-4 text-left">POSTS</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {filteredUsers.map((user) => (
+                  <tr
+                    key={user.id}
+                    className=" border-b-2 border-b-gray-300 items-center "
+                  >
+                    <td
+                      onClick={() => {
+                        const confirmDialog =
+                          document.getElementById("confirmDialog");
+                        if (confirmDialog) {
+                          confirmDialog.classList.toggle("hidden");
+                        }
+                        const confirmDeleteBtn =
+                          document.getElementById("confirm-delete-btn");
+                        if (confirmDeleteBtn) {
+                          confirmDeleteBtn.onclick = () => {
+                            deleteUser(user.id);
+                            if (confirmDialog) {
+                              confirmDialog.classList.toggle("hidden");
+                            }
+                          };
+                        }
+                        const confirmCancelBtn =
+                          document.getElementById("confirm-cancel-btn");
+                        if (confirmCancelBtn) {
+                          confirmCancelBtn.onclick = () => {
+                            if (confirmDialog) {
+                              confirmDialog.classList.toggle("hidden");
+                            }
+                          };
+                        }
+                      }}
+                      className="px-2.5 py-2 text-black cursor-trash text-left"
+                    >
+                      {user.id}
+                    </td>
+                    <td className="px-2.5 py-2 text-gray-500 text-left">
+                      {user.name}
+                    </td>
+                    <td className="px-2.5 py-2 text-gray-500 text-left">
+                      {user.email}
+                    </td>
+                    <td className="px-2.5 py-2 text-gray-500 text-center">
+                      {user.albumsCount}
+                    </td>
+                    <td className="px-2.5 py-2 text-gray-500 text-center">
+                      {user.postsCount}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="text-black text-sm flex  items-center pt-20 justify-start w-3/4">
+            Total {users.length}
+          </div>
+          <div className="flex space-x-2 mt-2 text-xl pb-4">
+            {[...Array(totalPages)].map((_, index) => (
+              <button
+                key={index}
+                onClick={() => paginate(index + 1)}
+                className={
+                  index + 1 === currentPage ? "active text-black" : "text-black"
+                }
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
         </div>
-        <div className="text-black text-sm flex  items-center pt-20 justify-start w-3/4">
-          Total {users.length}
-        </div>
-        <div className="flex space-x-2 mt-2 text-xl pb-4">
-          {[...Array(totalPages)].map((_, index) => (
-            <button
-              key={index}
-              onClick={() => paginate(index + 1)}
-              className={
-                index + 1 === currentPage ? "active text-black" : "text-black"
-              }
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
-      </div>
+      )}
     </>
   );
 }
