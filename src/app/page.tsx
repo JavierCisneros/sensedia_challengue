@@ -1,23 +1,26 @@
 import MenuDropDownMenu from "@/components/MenuDropDownMenu";
 import Image from "next/image";
 import TableUsers from "../components/TableUsers";
+import BreadCrumb from "@/components/BreadCrumb";
+import FormUsers from "../components/FormUsers";
 
 export default function Home() {
   return (
     <>
-      <header className="sticky top-0 z-20 w-full">
-        <div className="bg-first_header h-18 w-full">
+      <header className="sticky top-0 z-20 w-full ">
+        <div className="bg-first_header h-18 w-full flex items-center justify-center md:justify-start">
           <Image
             src="/sensedia_train.svg"
             alt="Treinador De Futebol"
             className="p-6"
             width="0"
             height="0"
+            priority={true}
             style={{ width: "auto", height: "auto" }}
           />
         </div>
-        <div className="bg-white h-16 flex items-center">
-          <div className=" flex items-center">
+        <div className="bg-white h-16 flex items-center justify-between px-4">
+          <div className="flex items-center">
             <Image
               src="/sensedia.svg"
               alt="sensedia logo"
@@ -26,26 +29,23 @@ export default function Home() {
               height="0"
               style={{ width: "auto", height: "auto" }}
             />
-            <p className="text-purple_sensedia pl-2">WELCOME</p>
-            <img src="polygon.svg" alt="polygon" className="px-2" />
-            <p className="text-gray-500">Registry</p>
+            <BreadCrumb />
           </div>
-          <div className="flex ml-auto">
-            <button className="m-2 ">
+          <div className="flex items-center">
+            <button className="m-2">
               <img src="question.svg" alt="help" />
             </button>
-            <button className="m-2 pr-6  ">
-              <img src="menu.svg" alt="help" />
+            <button className="m-2 pr-6">
+              <img src="menu.svg" alt="menu" />
             </button>
-            <div className="h-auto w-px bg-gray-500 flex-1 mx-1"></div>
-
+            <div className="h-auto w-px bg-gray-500 mx-1"></div>
             <MenuDropDownMenu />
           </div>
         </div>
       </header>
-      <main className="bg-white h-full w-full ">
-        <div className="flex justify-center h-auto w-full bg-purple_sensedia">
-          <div className="flex items-center">
+      <main className="bg-white h-full w-full">
+        <div className="flex flex-wrap justify-start h-auto bg-purple_sensedia w-full px-4 md:px-36 py-4 text-white">
+          <div className="flex items-center w-full md:w-auto mb-4 md:mb-0">
             <Image
               src="/type.svg"
               alt="Type of team icon"
@@ -59,10 +59,10 @@ export default function Home() {
               <p>Society</p>
             </div>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center w-full md:w-auto mb-4 md:mb-0">
             <Image
               src="/level.svg"
-              alt="Type of team icon"
+              alt="Level icon"
               className="p-6"
               width="0"
               height="0"
@@ -73,7 +73,7 @@ export default function Home() {
               <p>Semi-Professional</p>
             </div>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center w-full md:w-auto mb-4 md:mb-0">
             <Image
               src="/trophy.svg"
               alt="Trophy icon"
@@ -88,8 +88,10 @@ export default function Home() {
             </div>
           </div>
         </div>
-
         <TableUsers />
+        <div className="flex justify-center pb-8">
+          <FormUsers />
+        </div>
       </main>
     </>
   );
