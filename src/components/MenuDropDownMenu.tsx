@@ -28,7 +28,7 @@ export default function MenuDropDownMenu() {
             dropdownElement.classList.toggle("hidden");
           }
         }}
-        className="inline-flex w-full justify-center items-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900  hover:bg-gray-50"
+        className="inline-flex w-full justify-center items-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900  hover:bg-gray-50 "
         id="menu-button"
         aria-expanded="true"
         aria-haspopup="true"
@@ -55,15 +55,21 @@ export default function MenuDropDownMenu() {
         className="absolute bg-first_header border-[1px] hidden mt-2 origin-top-right w-auto"
         id="dropdown"
       >
-        <div className="cursor-pointer hover:bg-gray-300 p-4">Friends List</div>
-        <div className="cursor-pointer hover:bg-gray-300 p-4">
+        <div className="cursor-pointer hover:bg-gray-300 p-4 hover:border-l-2 hover:border-purple_sensedia hover:border-solid">
+          Friends List
+        </div>
+        <div className="cursor-pointer hover:bg-gray-300 p-4 hover:border-l-2 hover:border-purple_sensedia hover:border-solid">
           Saved Elements
         </div>
-        <div className="cursor-pointer hover:bg-gray-300 p-4 ">
+        <div className="cursor-pointer hover:bg-gray-300 p-4 hover:border-l-2 hover:border-purple_sensedia hover:border-solid">
           Notifications
         </div>
-        <div className="cursor-pointer hover:bg-gray-300 p-4 ">Preferences</div>
-        <div className="cursor-pointer hover:bg-gray-300 p-4 ">Log Out</div>
+        <div className="cursor-pointer hover:bg-gray-300 p-4 hover:border-l-2 hover:border-purple_sensedia hover:border-solid">
+          Preferences
+        </div>
+        <div className="cursor-pointer hover:bg-gray-300 p-4 hover:border-l-2 hover:border-purple_sensedia hover:border-solid">
+          Log Out
+        </div>
       </div>
     </div>
   );
