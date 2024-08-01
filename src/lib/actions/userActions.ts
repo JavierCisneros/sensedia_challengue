@@ -4,6 +4,11 @@ import { userSchema } from "./validations/userValidations";
 
 export async function newUser(userInfo: z.infer<typeof userSchema>) {
   const API_BASE_URL = process.env.SENSEDIA_API_SECRET_URL;
+  //validation
+  const result = userSchema.safeParse(userInfo);
+  if (!result.success) {
+    throw new Error(`Invalid user data: ${result.error.errors}`);
+  }
   const response = await fetch(`${API_BASE_URL}/users/create`, {
     method: "POST",
     headers: {
