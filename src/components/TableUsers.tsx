@@ -1,12 +1,25 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+
+type City = {
+  id: number;
+  name: string;
+  state: string;
+};
+type Day = {
+  id: number;
+  name: string;
+};
+
 interface User {
   id: number;
   name: string;
   email: string;
   postsCount?: number;
   albumsCount?: number;
+  city: City;
+  days: Day[];
 }
 
 export default function TableUsers() {
@@ -18,7 +31,7 @@ export default function TableUsers() {
   const [searchedVal, setSearchedVal] = useState("");
   //env variable
   const API_BASE_URL = process.env.NEXT_PUBLIC_API_SENSEDIA;
-
+  const API_NEXT_URL = process.env.NEXT_PUBLIC_NEXT_API;
   useEffect(() => {
     const fetchUsersData = async () => {
       try {
@@ -30,29 +43,46 @@ export default function TableUsers() {
         if (json.users && Array.isArray(json.users)) {
           const usersData = await Promise.all(
             json.users.map(async (user: User) => {
-              const [postsResponse, albumsResponse] = await Promise.all([
+              const [
+                postsResponse,
+                albumsResponse,
+                citiesResponse,
+                daysResponse,
+              ] = await Promise.all([
                 fetch(`${API_BASE_URL}/users/${user.id}/posts`),
                 fetch(`${API_BASE_URL}/users/${user.id}/albums`),
+                fetch(`${API_NEXT_URL}/cities`),
+                fetch(`${API_NEXT_URL}/days`),
               ]);
 
-              if (!postsResponse.ok || !albumsResponse.ok) {
+              if (
+                !postsResponse.ok ||
+                !albumsResponse.ok ||
+                !citiesResponse.ok ||
+                !daysResponse.ok
+              ) {
                 throw new Error("Failed to fetch posts or albums");
               }
 
               const postsJson = await postsResponse.json();
               const albumsJson = await albumsResponse.json();
-
+              const cityJson = await citiesResponse.json();
+              const daysJson = await daysResponse.json();
               // Extract the posts and albums array from the response object
               const posts = postsJson.posts || [];
               const albums = albumsJson.albums || [];
-
+              const city = cityJson.cities || [];
+              const days = daysJson.days || [];
               return {
                 ...user,
                 postsCount: posts.length,
                 albumsCount: albums.length,
+                city,
+                days,
               };
             })
           );
+          console.log(usersData);
           setUsers(usersData);
         } else {
           throw new Error("Invalid data structure");
@@ -173,6 +203,8 @@ export default function TableUsers() {
                   <th className="px-2.5 py-4 text-left">USER</th>
                   <th className="px-2.5 py-4 text-left">NAME</th>
                   <th className="px-2.5 py-4 text-left">E-MAIL</th>
+                  <th className="px-2.5 py-4 text-left">CITY</th>
+                  <th className="px-2.5 py-4 text-left">DAYS OF WEEK</th>
                   <th className="px-2.5 py-4 text-left">ALBUMS</th>
                   <th className="px-2.5 py-4 text-left">POSTS</th>
                 </tr>
@@ -219,6 +251,12 @@ export default function TableUsers() {
                     </td>
                     <td className="px-2.5 py-2 text-gray-500 text-left">
                       {user.email}
+                    </td>
+                    <td className="px-2.5 py-2 text-gray-500 text-left">
+                      {user.city.name}
+                    </td>
+                    <td className="px-2.5 py-2 text-gray-500 text-left">
+                      {user.days.map((day) => day.name).join(", ")}
                     </td>
                     <td className="px-2.5 py-2 text-gray-500 text-center">
                       {user.albumsCount}

@@ -5,7 +5,5 @@ export async function GET() {
   const randomIndex = Math.floor(Math.random() * citiesArray.length);
   const randomCity = citiesArray[randomIndex];
 
-  return new Response(JSON.stringify(randomCity), {
-    headers: { "Content-Type": "application/json" },
-  });
+  return Response.json({ cities: randomCity });
 }

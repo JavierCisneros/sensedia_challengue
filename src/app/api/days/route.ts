@@ -28,7 +28,5 @@ export async function GET() {
     return DAY_ORDER.indexOf(a.name) - DAY_ORDER.indexOf(b.name);
   });
 
-  return new Response(JSON.stringify(randomDays), {
-    headers: { "Content-Type": "application/json" },
-  });
+  return Response.json({ days: randomDays });
 }
