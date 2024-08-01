@@ -17,7 +17,7 @@ export default function TableUsers() {
   const [error, setError] = useState<string | null>(null);
   const [searchedVal, setSearchedVal] = useState("");
   //env variable
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_SENSEDIA;
 
   useEffect(() => {
     const fetchUsersData = async () => {
