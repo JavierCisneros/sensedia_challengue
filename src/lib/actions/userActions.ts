@@ -3,7 +3,7 @@ import { z } from "zod";
 import { userSchema } from "./validations/userValidations";
 
 export async function newUser(userInfo: z.infer<typeof userSchema>) {
-  const API_BASE_URL = process.env.SENSEDIA_API_BASE_URL;
+  const API_BASE_URL = process.env.SENSEDIA_API_SECRET_URL;
   const response = await fetch(`${API_BASE_URL}/users/create`, {
     method: "POST",
     headers: {
