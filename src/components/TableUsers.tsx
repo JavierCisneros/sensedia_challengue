@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Paginator from "./Paginator";
 
 type City = {
   id: number;
@@ -125,7 +126,133 @@ export default function TableUsers() {
   if (loading) {
     return (
       <div className="text-black text-xl flex justify-center items-center pt-20 h-96">
-        <img src="loader.svg" alt="loader" loading="lazy" />
+        <svg
+          width="58"
+          height="58"
+          viewBox="0 0 58 58"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g fill="#8556AA" fill-rule="evenodd">
+            <g transform="translate(2 1)" stroke="#8556AA" stroke-width="1.5">
+              <circle
+                cx="42.601"
+                cy="11.462"
+                r="5"
+                fill-opacity="1"
+                fill="#8556AA"
+              >
+                <animate
+                  attributeName="fill-opacity"
+                  begin="0s"
+                  dur="1.3s"
+                  values="1;0;0;0;0;0;0;0"
+                  calcMode="linear"
+                  repeatCount="indefinite"
+                />
+              </circle>
+              <circle
+                cx="49.063"
+                cy="27.063"
+                r="5"
+                fill-opacity="0"
+                fill="#8556AA"
+              >
+                <animate
+                  attributeName="fill-opacity"
+                  begin="0s"
+                  dur="1.3s"
+                  values="0;1;0;0;0;0;0;0"
+                  calcMode="linear"
+                  repeatCount="indefinite"
+                />
+              </circle>
+              <circle
+                cx="42.601"
+                cy="42.663"
+                r="5"
+                fill-opacity="0"
+                fill="#8556AA"
+              >
+                <animate
+                  attributeName="fill-opacity"
+                  begin="0s"
+                  dur="1.3s"
+                  values="0;0;1;0;0;0;0;0"
+                  calcMode="linear"
+                  repeatCount="indefinite"
+                />
+              </circle>
+              <circle cx="27" cy="49.125" r="5" fill-opacity="0" fill="#8556AA">
+                <animate
+                  attributeName="fill-opacity"
+                  begin="0s"
+                  dur="1.3s"
+                  values="0;0;0;1;0;0;0;0"
+                  calcMode="linear"
+                  repeatCount="indefinite"
+                />
+              </circle>
+              <circle
+                cx="11.399"
+                cy="42.663"
+                r="5"
+                fill-opacity="0"
+                fill="#8556AA"
+              >
+                <animate
+                  attributeName="fill-opacity"
+                  begin="0s"
+                  dur="1.3s"
+                  values="0;0;0;0;1;0;0;0"
+                  calcMode="linear"
+                  repeatCount="indefinite"
+                />
+              </circle>
+              <circle
+                cx="4.938"
+                cy="27.063"
+                r="5"
+                fill-opacity="0"
+                fill="#8556AA"
+              >
+                <animate
+                  attributeName="fill-opacity"
+                  begin="0s"
+                  dur="1.3s"
+                  values="0;0;0;0;0;1;0;0"
+                  calcMode="linear"
+                  repeatCount="indefinite"
+                />
+              </circle>
+              <circle
+                cx="11.399"
+                cy="11.462"
+                r="5"
+                fill-opacity="0"
+                fill="#8556AA"
+              >
+                <animate
+                  attributeName="fill-opacity"
+                  begin="0s"
+                  dur="1.3s"
+                  values="0;0;0;0;0;0;1;0"
+                  calcMode="linear"
+                  repeatCount="indefinite"
+                />
+              </circle>
+              <circle cx="27" cy="5" r="5" fill-opacity="0" fill="#8556AA">
+                <animate
+                  attributeName="fill-opacity"
+                  begin="0s"
+                  dur="1.3s"
+                  values="0;0;0;0;0;0;0;1"
+                  calcMode="linear"
+                  repeatCount="indefinite"
+                />
+              </circle>
+            </g>
+          </g>
+        </svg>
       </div>
     );
   }
@@ -212,35 +339,66 @@ export default function TableUsers() {
                     key={user.id}
                     className=" border-b-2 border-b-gray-300 items-center "
                   >
-                    <td
-                      onClick={() => {
-                        const confirmDialog =
-                          document.getElementById("confirmDialog");
-                        if (confirmDialog) {
-                          confirmDialog.classList.toggle("hidden");
-                        }
-                        const confirmDeleteBtn =
-                          document.getElementById("confirm-delete-btn");
-                        if (confirmDeleteBtn) {
-                          confirmDeleteBtn.onclick = () => {
-                            deleteUser(user.id);
-                            if (confirmDialog) {
-                              confirmDialog.classList.toggle("hidden");
-                            }
-                          };
-                        }
-                        const confirmCancelBtn =
-                          document.getElementById("confirm-cancel-btn");
-                        if (confirmCancelBtn) {
-                          confirmCancelBtn.onclick = () => {
-                            if (confirmDialog) {
-                              confirmDialog.classList.toggle("hidden");
-                            }
-                          };
-                        }
-                      }}
-                      className="px-2.5 py-2 text-black cursor-trash text-left"
-                    >
+                    <td className="px-2.5 py-2 text-black  text-left flex flex-row">
+                      <svg
+                        fill="#000000"
+                        version="1.1"
+                        id="Capa_1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 172.541 172.541"
+                        className="w-10 h-10 cursor-pointer self-center mr-4 fill-white hover:fill-black "
+                        onClick={() => {
+                          const confirmDialog =
+                            document.getElementById("confirmDialog");
+                          if (confirmDialog) {
+                            confirmDialog.classList.toggle("hidden");
+                          }
+                          const confirmDeleteBtn =
+                            document.getElementById("confirm-delete-btn");
+                          if (confirmDeleteBtn) {
+                            confirmDeleteBtn.onclick = () => {
+                              deleteUser(user.id);
+                              if (confirmDialog) {
+                                confirmDialog.classList.toggle("hidden");
+                              }
+                            };
+                          }
+                          const confirmCancelBtn =
+                            document.getElementById("confirm-cancel-btn");
+                          if (confirmCancelBtn) {
+                            confirmCancelBtn.onclick = () => {
+                              if (confirmDialog) {
+                                confirmDialog.classList.toggle("hidden");
+                              }
+                            };
+                          }
+                        }}
+                      >
+                        <g>
+                          <path
+                            d="M166.797,25.078h-13.672h-29.971V0H49.388v25.078H19.417H5.744v15h14.806l10,132.463h111.443l10-132.463h14.805V25.078z
+		 M64.388,15h43.766v10.078H64.388V15z M128.083,157.541H44.46L35.592,40.078h13.796h73.766h13.796L128.083,157.541z"
+                          />
+                          <rect
+                            x="80.271"
+                            y="65.693"
+                            width="12"
+                            height="66.232"
+                          />
+                          <rect
+                            x="57.271"
+                            y="65.693"
+                            width="12"
+                            height="66.232"
+                          />
+                          <rect
+                            x="103.271"
+                            y="65.693"
+                            width="12"
+                            height="66.232"
+                          />
+                        </g>
+                      </svg>
                       {user.id}
                     </td>
                     <td className="px-2.5 py-2 text-gray-500 text-left">
@@ -266,21 +424,16 @@ export default function TableUsers() {
               </tbody>
             </table>
           </div>
-          <div className="text-black text-sm flex  items-center pt-20 justify-start w-3/4">
-            Total {users.length}
-          </div>
-          <div className="flex space-x-2 mt-2 text-xl pb-4">
-            {[...Array(totalPages)].map((_, index) => (
-              <button
-                key={index}
-                onClick={() => paginate(index + 1)}
-                className={
-                  index + 1 === currentPage ? "active text-black" : "text-black"
-                }
-              >
-                {index + 1}
-              </button>
-            ))}
+
+          <div className="w-3/4">
+            <div className="text-gray-400 flex pt-20 justify-start w-1/4">
+              Total {users.length} users
+            </div>
+            <Paginator
+              currentPage={currentPage}
+              totalPages={totalPages}
+              paginate={paginate}
+            />
           </div>
         </div>
       )}
