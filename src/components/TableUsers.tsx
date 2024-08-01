@@ -96,7 +96,7 @@ export default function TableUsers() {
   if (loading) {
     return (
       <div className="text-black text-xl flex justify-center items-center pt-20 h-80">
-        Loading...
+        <img src="loader.svg" alt="loader" />
       </div>
     );
   }
