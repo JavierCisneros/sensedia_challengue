@@ -20,11 +20,19 @@ export default function BreadCrumb() {
             <li>
               <span className="text-purple_sensedia">WELCOME</span>
             </li>
-            <img
-              src="polygon.svg"
-              alt="polygon"
-              className="px-2 hidden md:block"
-            />
+            <svg
+              width="5"
+              height="6"
+              viewBox="0 0 5 6"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4.25115 2.27942C4.65999 2.67282 4.65999 3.32718 4.25115 3.72058L2.19338 5.70068C1.55807 6.312 0.5 5.86176 0.5 4.9801L0.5 1.0199C0.5 0.138242 1.55807 -0.311997 2.19338 0.299324L4.25115 2.27942Z"
+                fill="#E2E2E2"
+              />
+            </svg>
+
             <li>
               <span className="text-gray-500">Registry</span>
             </li>
@@ -32,7 +40,7 @@ export default function BreadCrumb() {
         ) : (
           <>
             <li>
-              <Link href="/" className="text-blue-600 hover:text-blue-800">
+              <Link href="/" className="text-purple_sensedia">
                 Home
               </Link>
             </li>
@@ -43,18 +51,23 @@ export default function BreadCrumb() {
 
               return (
                 <li key={href} className="flex items-center space-x-2">
-                  <img
-                    src="polygon.svg"
-                    alt="polygon"
-                    className="px-2 hidden md:block"
-                  />
+                  <svg
+                    width="5"
+                    height="6"
+                    viewBox="0 0 5 6"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M4.25115 2.27942C4.65999 2.67282 4.65999 3.32718 4.25115 3.72058L2.19338 5.70068C1.55807 6.312 0.5 5.86176 0.5 4.9801L0.5 1.0199C0.5 0.138242 1.55807 -0.311997 2.19338 0.299324L4.25115 2.27942Z"
+                      fill="#E2E2E2"
+                    />
+                  </svg>
+
                   {isLast ? (
                     <span className="text-gray-500">{segment}</span>
                   ) : (
-                    <Link
-                      href={href}
-                      className="text-blue-600 hover:text-blue-800"
-                    >
+                    <Link href={href} className="text-purple_sensedia">
                       {segment}
                     </Link>
                   )}
