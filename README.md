@@ -62,11 +62,13 @@
 ![Captura de pantalla 2024-08-02 115540](https://github.com/user-attachments/assets/f302d5a0-ae15-4bc3-bcc2-b6589f5d7449)
 
 ## Mobile compatibility
-![Screenshot_20240802-122623](https://github.com/user-attachments/assets/15a86fd6-ccf9-4659-8e43-2aabf3851e1f)
-![Screenshot_20240802-122553](https://github.com/user-attachments/assets/6b909d70-a972-4f3d-8091-1210df7b05bd)
-![Screenshot_20240802-122516](https://github.com/user-attachments/assets/c8a825ac-639b-4b52-9f4f-f52dbf8da155)
-![Screenshot_20240802-122607](https://github.com/user-attachments/assets/ca572a39-c3c1-412d-aa69-53e44b3ba1d2)
-![Screenshot_20240802-122612](https://github.com/user-attachments/assets/a862554f-8aee-43ec-a7df-39efa6642673)
+
+<img src="https://github.com/user-attachments/assets/15a86fd6-ccf9-4659-8e43-2aabf3851e1f" alt="Screenshot_20240802-122623" width="150" height="auto" />
+<img src="https://github.com/user-attachments/assets/6b909d70-a972-4f3d-8091-1210df7b05bd" alt="Screenshot_20240802-122553" width="150" height="auto" />
+<img src="https://github.com/user-attachments/assets/c8a825ac-639b-4b52-9f4f-f52dbf8da155" alt="Screenshot_20240802-122516" width="150" height="auto" />
+<img src="https://github.com/user-attachments/assets/ca572a39-c3c1-412d-aa69-53e44b3ba1d2" alt="Screenshot_20240802-122607" width="150" height="auto" />
+<img src="https://github.com/user-attachments/assets/a862554f-8aee-43ec-a7df-39efa6642673" alt="Screenshot_20240802-122612" width="150" height="auto" />
+
 
 ## Contact
 
