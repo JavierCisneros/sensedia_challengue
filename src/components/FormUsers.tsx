@@ -3,16 +3,16 @@
 import { newUser } from "@/lib/actions/userActions";
 import { userSchema } from "@/lib/actions/validations/userValidations";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import React, { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
 // Define the form data type based on the schema
 type FormData = z.infer<typeof userSchema>;
 
 export default function FormUsers() {
   const [isPending, startTransition] = useTransition();
-
+  const router = useRouter();
   // Initialize the form with react-hook-form
   const form = useForm<FormData>({
     resolver: zodResolver(userSchema),
@@ -30,9 +30,9 @@ export default function FormUsers() {
       try {
         await newUser(data);
         form.reset();
+        router.push("/users");
       } catch (error) {
         console.error(error);
-        // Show the confirm dialog  if the user already exists
         const confirmDialog = document.getElementById("dialogUserExists");
         if (confirmDialog) {
           confirmDialog.classList.remove("hidden");
@@ -43,7 +43,6 @@ export default function FormUsers() {
 
   return (
     <div className="flex flex-col w-full items-center">
-      <h1 className="text-2xl font-bold text-black pb-4 w-3/4">Registry</h1>
       <div
         className="fixed inset-0 items-center justify-center z-50 backdrop-blur-sm confirm-dialog hidden"
         id="dialogUserExists"
@@ -78,8 +77,9 @@ export default function FormUsers() {
           </div>
         </div>
       </div>
+
       <div className="flex border-2 w-3/4 rounded-lg pb-8 h-screen/2 flex-col items-start">
-        <h2 className="text-xl text-gray-500 ml-10 w-full text-left pt-10">
+        <h2 className="text-xl text-gray-500 ml-10 w-full text-left pt-10 ">
           Registry
         </h2>
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
