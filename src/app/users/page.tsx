@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import TableUsers from "@/components/TableUsers";
 import Image from "next/image";
@@ -52,6 +53,7 @@ export default function page() {
         </div>
         <TableUsers />
       </main>
+      <Footer />
     </>
   );
 }

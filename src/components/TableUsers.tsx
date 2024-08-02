@@ -145,18 +145,13 @@ export default function TableUsers() {
                     key={user.id}
                     className=" border-b-2 border-b-gray-300 items-center cursor-pointer"
                   >
-                    <td
-                      className="px-2.5 py-2 text-black  text-left "
-                      onClick={() => {
-                        router.push(`/user/${user.id}`);
-                      }}
-                    >
+                    <td className="px-2.5 py-2 text-black  text-left cursor-auto">
                       {user.id}
                     </td>
                     <td
                       className="px-2.5 py-2 text-gray-500 text-left"
                       onClick={() => {
-                        router.push(`/user/${user.id}`);
+                        router.push(`/users/${user.id}`);
                       }}
                     >
                       {user.name}
@@ -164,7 +159,7 @@ export default function TableUsers() {
                     <td
                       className="px-2.5 py-2 text-gray-500 text-left"
                       onClick={() => {
-                        router.push(`/user/${user.id}`);
+                        router.push(`/users/${user.id}`);
                       }}
                     >
                       {user.email}
@@ -172,7 +167,7 @@ export default function TableUsers() {
                     <td
                       className="px-2.5 py-2 text-gray-500 text-left"
                       onClick={() => {
-                        router.push(`/user/${user.id}`);
+                        router.push(`/users/${user.id}`);
                       }}
                     >
                       {user.city.name}
@@ -180,7 +175,7 @@ export default function TableUsers() {
                     <td
                       className="px-2.5 py-2 text-gray-500 text-left"
                       onClick={() => {
-                        router.push(`/user/${user.id}`);
+                        router.push(`/users/${user.id}`);
                       }}
                     >
                       {user.days.map((day) => day.name).join(", ")}
@@ -188,7 +183,7 @@ export default function TableUsers() {
                     <td
                       className="px-2.5 py-2 text-gray-500 text-center"
                       onClick={() => {
-                        router.push(`/user/${user.id}`);
+                        router.push(`/users/${user.id}`);
                       }}
                     >
                       {user.albumsCount}
@@ -196,7 +191,7 @@ export default function TableUsers() {
                     <td
                       className="px-2.5 py-2 text-gray-500 text-center"
                       onClick={() => {
-                        router.push(`/user/${user.id}`);
+                        router.push(`/users/${user.id}`);
                       }}
                     >
                       {user.postsCount}

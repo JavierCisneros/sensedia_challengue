@@ -1,7 +1,6 @@
 import Image from "next/image";
-import TableUsers from "../components/TableUsers";
-import FormUsers from "../components/FormUsers";
 import Header from "../components/Header";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -52,10 +51,9 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="flex justify-center pt-10 pb-8">
-          <FormUsers />
-        </div>
       </main>
+      <div className="h-96"></div>
+      <Footer />
     </>
   );
 }

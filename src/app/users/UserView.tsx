@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Header from "../../components/Header";
 import { getUser } from "@/lib/actions/userActions";
 import { Icons } from "@/components/Icons";
+import Footer from "@/components/Footer";
 
 export default function UserView({ id }: { id: string }) {
   //get user data with getUserData function
@@ -48,6 +49,7 @@ export default function UserView({ id }: { id: string }) {
           <p className="text-lg ">Email: {users?.email}</p>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

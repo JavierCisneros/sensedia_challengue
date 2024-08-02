@@ -13,6 +13,7 @@ const config: Config = {
     cursor: {
       trash: 'url("/trash.svg"), auto',
       pointer: "pointer",
+      auto: "auto",
     },
     container: {
       center: true,

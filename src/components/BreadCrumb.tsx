@@ -18,7 +18,7 @@ export default function BreadCrumb() {
         {isHomePage ? (
           <>
             <li>
-              <span className="text-purple_sensedia">WELCOME</span>
+              <span className="text-purple_sensedia">Home</span>
             </li>
             <svg
               width="5"
@@ -32,10 +32,6 @@ export default function BreadCrumb() {
                 fill="#E2E2E2"
               />
             </svg>
-
-            <li>
-              <span className="text-gray-500">Registry</span>
-            </li>
           </>
         ) : (
           <>
@@ -45,7 +41,6 @@ export default function BreadCrumb() {
               </Link>
             </li>
             {segments.map((segment, index) => {
-              // Build the path for each breadcrumb link
               const href = `/${segments.slice(0, index + 1).join("/")}`;
               const isLast = index === segments.length - 1;
 
