@@ -12,7 +12,7 @@
 
 3. ##### Deploy Back-End
 
-To ensure the project works correctly, you need to deploy the Sensedia Candidate Challenge API on a Linux server. Follow the instructions in the provided documentation [Sensedia API](https://bitbucket.org/sensedia/sensedia-candidate-challenge)
+   To ensure the project works correctly, you need to deploy the Sensedia Candidate Challenge API on a Linux server. Follow the instructions in the provided documentation [Sensedia API](https://bitbucket.org/sensedia/sensedia-candidate-challenge)
 
 4. ##### Run development server
 
@@ -22,7 +22,7 @@ To ensure the project works correctly, you need to deploy the Sensedia Candidate
 
 5. ##### Change the enviroment variables
 
-After deploying the Sensedia API and running the Next.js development server, update the `.env` variables for proper functionality.
+   After deploying the Sensedia API and running the Next.js development server, update the `.env` variables for proper functionality.
 
 - **Sensedia API:** This refers to the API you deployed. Change the `SENSEDIA_API_SECRET_URL` to the URL where your server is running (e.g., `http://localhost:8080`).
 
