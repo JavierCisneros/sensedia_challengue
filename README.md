@@ -39,18 +39,24 @@ After deploying the Sensedia API and running the Next.js development server, upd
 1. #### Home page
 
    The home page provides a simple interface where you can choose to register a new user or view the users table to find all registered users. A breadcrumb navigation is also available to help you navigate the website.
+![Captura de pantalla 2024-08-02 115307](https://github.com/user-attachments/assets/9ebdc331-cdd2-465a-bc4e-e76b000f1ef0)
 
 2. #### Users table
 
    This page displays all users retrieved from the Sensedia API. You can search for users by name, ID, email, or other fields using the search bar. To delete a user, click the trash can icon on the right of the user row and confirm the action to prevent accidental data loss. Clicking on a user row will take you to the user's profile page. You can also navigate through the table using the paginator at the bottom.
+![Captura de pantalla 2024-08-02 115002](https://github.com/user-attachments/assets/e7827232-4af2-46f1-926e-6615a24f169d)
+![Captura de pantalla 2024-08-02 115013](https://github.com/user-attachments/assets/6cef83be-3a3d-4102-bed6-8fdb0dd37e6a)
 
 3. #### Registry form
 
    Use this page to add new users to the database by filling in the required fields. If any required fields are missing, you will be prompted to correct them. After submission, you will be redirected to the users table, where the newly added user will appear at the end.
+![Captura de pantalla 2024-08-02 115109](https://github.com/user-attachments/assets/6796f88f-fcbe-4af9-bf40-30135c9346c7)
+![Captura de pantalla 2024-08-02 115130](https://github.com/user-attachments/assets/7e45dac6-0190-4047-9b31-de5f4a701d30)
 
 4. #### Users page
 
    Clicking on a user will take you to their profile page, which displays basic information about the user.
+![image](https://github.com/user-attachments/assets/da75aa1f-922c-4459-899d-ed42e6605b0e)
 
 ## Contact
 
