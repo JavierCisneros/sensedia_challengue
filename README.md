@@ -57,6 +57,9 @@ After deploying the Sensedia API and running the Next.js development server, upd
 
    Clicking on a user will take you to their profile page, which displays basic information about the user.
 ![image](https://github.com/user-attachments/assets/da75aa1f-922c-4459-899d-ed42e6605b0e)
+5. #### Not Found
+   A not found page will display when the user get the route wrong
+![Captura de pantalla 2024-08-02 115540](https://github.com/user-attachments/assets/f302d5a0-ae15-4bc3-bcc2-b6589f5d7449)
 
 ## Contact
 
