@@ -61,7 +61,7 @@
    A not found page will display when the user get the route wrong
 ![Captura de pantalla 2024-08-02 115540](https://github.com/user-attachments/assets/f302d5a0-ae15-4bc3-bcc2-b6589f5d7449)
 
-##Mobile compatibility
+## Mobile compatibility
 ![Screenshot_20240802-122623](https://github.com/user-attachments/assets/15a86fd6-ccf9-4659-8e43-2aabf3851e1f)
 ![Screenshot_20240802-122553](https://github.com/user-attachments/assets/6b909d70-a972-4f3d-8091-1210df7b05bd)
 ![Screenshot_20240802-122516](https://github.com/user-attachments/assets/c8a825ac-639b-4b52-9f4f-f52dbf8da155)
