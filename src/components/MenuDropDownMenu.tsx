@@ -1,10 +1,33 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
+import { NAMES } from "./NamesConstants";
+import { MENU } from "./MenuContants";
+import Link from "next/link";
+
+type User = {
+  id: number;
+  name: string;
+};
+type NamesType = {
+  [key: string]: User;
+};
 
 export default function MenuDropDownMenu() {
   const dropdown = useRef<HTMLDivElement>(null);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
+  const [userName, setUserName] = useState<string | null>(null);
+  function getRandomName() {
+    const names: NamesType = NAMES; // Ensure TypeScript understands NAMES is of type NamesType
+    const keys = Object.keys(names);
+    const randomKey = keys[Math.floor(Math.random() * keys.length)];
+    return names[randomKey].name;
+  }
+  function getInitials(name: string) {
+    const nameParts = name.split(" ");
+    const initials = nameParts.map((part) => part[0]).join("");
+    return initials;
+  }
 
   function handleClickOutside(event: MouseEvent) {
     if (dropdown.current && !dropdown.current.contains(event.target as Node)) {
@@ -26,7 +49,10 @@ export default function MenuDropDownMenu() {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
-
+  useEffect(() => {
+    const name = getRandomName();
+    setUserName(name);
+  }, []);
   return (
     <div
       className="relative w-48 border-l-2 border-gray-500 border-solid"
@@ -41,9 +67,9 @@ export default function MenuDropDownMenu() {
         aria-haspopup="true"
       >
         <div className="flex items-center justify-center rounded-full w-10 h-10 bg-purple_sensedia text-white">
-          UN
+          {userName ? getInitials(userName) : ""}
         </div>
-        UserName
+        {userName ? userName : "Loading..."}
         <svg
           className="-mr-1 h-5 w-5 text-gray-400"
           viewBox="0 0 20 20"
@@ -59,26 +85,20 @@ export default function MenuDropDownMenu() {
       </button>
       <div
         ref={dropdown}
-        className={`absolute bg-first_header border-[2px] mt-2 origin-top-right w-auto text-white ${
+        className={`absolute bg-first_header border-[2px] mt-2 origin-top-right w-auto flex flex-col text-white ${
           isDropdownVisible ? "" : "hidden"
         }`}
         id="dropdown"
       >
-        <div className="cursor-pointer hover:bg-gray-500 p-4 hover:border-l-2 hover:border-purple_sensedia hover:border-solid">
-          Friends List
-        </div>
-        <div className="cursor-pointer hover:bg-gray-500 p-4 hover:border-l-2 hover:border-purple_sensedia hover:border-solid">
-          Saved Elements
-        </div>
-        <div className="cursor-pointer hover:bg-gray-500 p-4 hover:border-l-2 hover:border-purple_sensedia hover:border-solid">
-          Notifications
-        </div>
-        <div className="cursor-pointer hover:bg-gray-500 p-4 hover:border-l-2 hover:border-purple_sensedia hover:border-solid">
-          Preferences
-        </div>
-        <div className="cursor-pointer hover:bg-gray-500 p-4 hover:border-l-2 hover:border-purple_sensedia hover:border-solid">
-          Log Out
-        </div>
+        {Object.values(MENU).map((item) => (
+          <Link
+            href={`/${item.name}`}
+            key={item.id}
+            className="cursor-pointer hover:bg-gray-500 p-4 hover:border-l-2 hover:border-purple_sensedia hover:border-solid"
+          >
+            {item.name}
+          </Link>
+        ))}
       </div>
     </div>
   );
