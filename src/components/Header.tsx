@@ -25,7 +25,9 @@ export default function Header() {
             height="0"
             style={{ width: "auto", height: "auto" }}
           />
-          <BreadCrumb />
+          <div className="invisible md:visible">
+            <BreadCrumb />
+          </div>
         </div>
         <div className="flex items-center">
           <button className="m-2">

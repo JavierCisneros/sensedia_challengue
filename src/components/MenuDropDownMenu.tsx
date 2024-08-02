@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useEffect } from "react";
 
 export default function MenuDropDownMenu() {
   const dropdown = useRef<HTMLDivElement>(null);
@@ -20,7 +20,7 @@ export default function MenuDropDownMenu() {
 
   return (
     <div
-      className="relative w-48 border-l-2 border-gray-300 border-solid"
+      className="relative w-48 border-l-2 border-gray-500 border-solid"
       id="dropdownButton"
     >
       <button
@@ -55,22 +55,22 @@ export default function MenuDropDownMenu() {
       </button>
       <div
         ref={dropdown}
-        className="absolute bg-first_header border-[1px] hidden mt-2 origin-top-right w-auto"
+        className="absolute bg-first_header border-[2px] hidden mt-2 origin-top-right w-auto text-white"
         id="dropdown"
       >
-        <div className="cursor-pointer hover:bg-gray-300 p-4 hover:border-l-2 hover:border-purple_sensedia hover:border-solid">
+        <div className="cursor-pointer hover:bg-gray-500 p-4 hover:border-l-2 hover:border-purple_sensedia hover:border-solid">
           Friends List
         </div>
-        <div className="cursor-pointer hover:bg-gray-300 p-4 hover:border-l-2 hover:border-purple_sensedia hover:border-solid">
+        <div className="cursor-pointer hover:bg-gray-500 p-4 hover:border-l-2 hover:border-purple_sensedia hover:border-solid">
           Saved Elements
         </div>
-        <div className="cursor-pointer hover:bg-gray-300 p-4 hover:border-l-2 hover:border-purple_sensedia hover:border-solid">
+        <div className="cursor-pointer hover:bg-gray-500 p-4 hover:border-l-2 hover:border-purple_sensedia hover:border-solid">
           Notifications
         </div>
-        <div className="cursor-pointer hover:bg-gray-300 p-4 hover:border-l-2 hover:border-purple_sensedia hover:border-solid">
+        <div className="cursor-pointer hover:bg-gray-500 p-4 hover:border-l-2 hover:border-purple_sensedia hover:border-solid">
           Preferences
         </div>
-        <div className="cursor-pointer hover:bg-gray-300 p-4 hover:border-l-2 hover:border-purple_sensedia hover:border-solid">
+        <div className="cursor-pointer hover:bg-gray-500 p-4 hover:border-l-2 hover:border-purple_sensedia hover:border-solid">
           Log Out
         </div>
       </div>

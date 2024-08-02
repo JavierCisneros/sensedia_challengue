@@ -1,14 +1,12 @@
+import Header from "@/components/Header";
+import TableUsers from "@/components/TableUsers";
 import Image from "next/image";
-import TableUsers from "../components/TableUsers";
-import FormUsers from "../components/FormUsers";
-import Header from "../components/Header";
-
-export default function Home() {
+export default function page() {
   return (
     <>
       <Header />
-      <main className="bg-white h-full w-full sticky">
-        <div className="flex flex-wrap justify-start h-auto bg-purple_sensedia w-full px-4 md:px-36 py-4 text-white">
+      <main className="bg-white h-full w-full sticky pb-20">
+        <div className="flex flex-wrap justify-start h-auto bg-purple_sensedia w-full px-4 md:px-36 pt-4 text-white">
           <div className="flex items-center w-full md:w-auto mb-4 md:mb-0">
             <Image
               src="/type.svg"
@@ -52,9 +50,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="flex justify-center pt-10 pb-8">
-          <FormUsers />
-        </div>
+        <TableUsers />
       </main>
     </>
   );

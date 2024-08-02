@@ -4,13 +4,17 @@ import React, { useState, useEffect } from "react";
 import Paginator from "./Paginator";
 import { User } from "../lib/actions/userActions";
 import { deleteUser, fetchUsersData } from "../lib/actions/userActions";
+import { useRouter } from "next/navigation";
+import { Icons } from "./Icons";
 export default function TableUsers() {
+  const router = useRouter();
   const [users, setUsers] = useState<User[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(10);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchedVal, setSearchedVal] = useState("");
+
   useEffect(() => {
     const getUsers = async () => {
       setLoading(true);
@@ -35,7 +39,7 @@ export default function TableUsers() {
   // Change page
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-  const handleDeleteUser = async (id: number) => {
+  const handleDeleteUser = async (id: string) => {
     try {
       await deleteUser(id);
       setUsers(users.filter((user) => user.id !== id));
@@ -47,133 +51,7 @@ export default function TableUsers() {
   if (loading) {
     return (
       <div className="text-black text-xl flex justify-center items-center pt-20 h-96">
-        <svg
-          width="58"
-          height="58"
-          viewBox="0 0 58 58"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g fill="#8556AA" fill-rule="evenodd">
-            <g transform="translate(2 1)" stroke="#8556AA" stroke-width="1.5">
-              <circle
-                cx="42.601"
-                cy="11.462"
-                r="5"
-                fill-opacity="1"
-                fill="#8556AA"
-              >
-                <animate
-                  attributeName="fill-opacity"
-                  begin="0s"
-                  dur="1.3s"
-                  values="1;0;0;0;0;0;0;0"
-                  calcMode="linear"
-                  repeatCount="indefinite"
-                />
-              </circle>
-              <circle
-                cx="49.063"
-                cy="27.063"
-                r="5"
-                fill-opacity="0"
-                fill="#8556AA"
-              >
-                <animate
-                  attributeName="fill-opacity"
-                  begin="0s"
-                  dur="1.3s"
-                  values="0;1;0;0;0;0;0;0"
-                  calcMode="linear"
-                  repeatCount="indefinite"
-                />
-              </circle>
-              <circle
-                cx="42.601"
-                cy="42.663"
-                r="5"
-                fill-opacity="0"
-                fill="#8556AA"
-              >
-                <animate
-                  attributeName="fill-opacity"
-                  begin="0s"
-                  dur="1.3s"
-                  values="0;0;1;0;0;0;0;0"
-                  calcMode="linear"
-                  repeatCount="indefinite"
-                />
-              </circle>
-              <circle cx="27" cy="49.125" r="5" fill-opacity="0" fill="#8556AA">
-                <animate
-                  attributeName="fill-opacity"
-                  begin="0s"
-                  dur="1.3s"
-                  values="0;0;0;1;0;0;0;0"
-                  calcMode="linear"
-                  repeatCount="indefinite"
-                />
-              </circle>
-              <circle
-                cx="11.399"
-                cy="42.663"
-                r="5"
-                fill-opacity="0"
-                fill="#8556AA"
-              >
-                <animate
-                  attributeName="fill-opacity"
-                  begin="0s"
-                  dur="1.3s"
-                  values="0;0;0;0;1;0;0;0"
-                  calcMode="linear"
-                  repeatCount="indefinite"
-                />
-              </circle>
-              <circle
-                cx="4.938"
-                cy="27.063"
-                r="5"
-                fill-opacity="0"
-                fill="#8556AA"
-              >
-                <animate
-                  attributeName="fill-opacity"
-                  begin="0s"
-                  dur="1.3s"
-                  values="0;0;0;0;0;1;0;0"
-                  calcMode="linear"
-                  repeatCount="indefinite"
-                />
-              </circle>
-              <circle
-                cx="11.399"
-                cy="11.462"
-                r="5"
-                fill-opacity="0"
-                fill="#8556AA"
-              >
-                <animate
-                  attributeName="fill-opacity"
-                  begin="0s"
-                  dur="1.3s"
-                  values="0;0;0;0;0;0;1;0"
-                  calcMode="linear"
-                  repeatCount="indefinite"
-                />
-              </circle>
-              <circle cx="27" cy="5" r="5" fill-opacity="0" fill="#8556AA">
-                <animate
-                  attributeName="fill-opacity"
-                  begin="0s"
-                  dur="1.3s"
-                  values="0;0;0;0;0;0;0;1"
-                  calcMode="linear"
-                  repeatCount="indefinite"
-                />
-              </circle>
-            </g>
-          </g>
-        </svg>
+        <Icons.loader />
       </div>
     );
   }
@@ -241,10 +119,13 @@ export default function TableUsers() {
             onChange={(e) => setSearchedVal(e.target.value)}
             placeholder="Search"
           />
-          <div className="w-3/4 h-96 overscroll-y-none overflow-y-auto ">
-            <table className="w-full">
-              <thead className="sticky top-0 bg-white z-10  ">
-                <tr className="text-gray-500">
+          <div className="w-3/4 h-80 overscroll-y-none overflow-y-auto ">
+            <table className="w-full ">
+              <thead className="sticky top-0 bg-white z-10 ">
+                <tr>
+                  <th className="h-px bg-gray-300" colSpan={8}></th>
+                </tr>
+                <tr className="text-gray-500 ">
                   <th className="px-2.5 py-4 text-left">USER</th>
                   <th className="px-2.5 py-4 text-left">NAME</th>
                   <th className="px-2.5 py-4 text-left">E-MAIL</th>
@@ -252,41 +133,82 @@ export default function TableUsers() {
                   <th className="px-2.5 py-4 text-left">DAYS OF WEEK</th>
                   <th className="px-2.5 py-4 text-left">ALBUMS</th>
                   <th className="px-2.5 py-4 text-left">POSTS</th>
+                  <th className="px-2.5 py-4 text-left"></th>
+                </tr>
+                <tr>
+                  <th className="h-px bg-gray-300" colSpan={8}></th>
                 </tr>
               </thead>
               <tbody>
                 {filteredUsers.map((user) => (
                   <tr
                     key={user.id}
-                    className=" border-b-2 border-b-gray-300 items-center "
+                    className=" border-b-2 border-b-gray-300 items-center cursor-pointer"
                   >
-                    <td className="px-2.5 py-2 text-black  text-left ">
+                    <td
+                      className="px-2.5 py-2 text-black  text-left "
+                      onClick={() => {
+                        router.push(`/user/${user.id}`);
+                      }}
+                    >
                       {user.id}
                     </td>
-                    <td className="px-2.5 py-2 text-gray-500 text-left">
+                    <td
+                      className="px-2.5 py-2 text-gray-500 text-left"
+                      onClick={() => {
+                        router.push(`/user/${user.id}`);
+                      }}
+                    >
                       {user.name}
                     </td>
-                    <td className="px-2.5 py-2 text-gray-500 text-left">
+                    <td
+                      className="px-2.5 py-2 text-gray-500 text-left"
+                      onClick={() => {
+                        router.push(`/user/${user.id}`);
+                      }}
+                    >
                       {user.email}
                     </td>
-                    <td className="px-2.5 py-2 text-gray-500 text-left">
+                    <td
+                      className="px-2.5 py-2 text-gray-500 text-left"
+                      onClick={() => {
+                        router.push(`/user/${user.id}`);
+                      }}
+                    >
                       {user.city.name}
                     </td>
-                    <td className="px-2.5 py-2 text-gray-500 text-left">
+                    <td
+                      className="px-2.5 py-2 text-gray-500 text-left"
+                      onClick={() => {
+                        router.push(`/user/${user.id}`);
+                      }}
+                    >
                       {user.days.map((day) => day.name).join(", ")}
                     </td>
-                    <td className="px-2.5 py-2 text-gray-500 text-center">
+                    <td
+                      className="px-2.5 py-2 text-gray-500 text-center"
+                      onClick={() => {
+                        router.push(`/user/${user.id}`);
+                      }}
+                    >
                       {user.albumsCount}
                     </td>
-                    <td className="px-2.5 py-2 text-gray-500 flex flex-row items-center justify-end text-center pl-8 h-full my-7">
+                    <td
+                      className="px-2.5 py-2 text-gray-500 text-center"
+                      onClick={() => {
+                        router.push(`/user/${user.id}`);
+                      }}
+                    >
                       {user.postsCount}
+                    </td>
+                    <td className="px-2.5 py-2 text-gray-500 justify-center pr-5">
                       <svg
                         fill="#000000"
                         version="1.1"
                         id="Capa_1"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 172.541 172.541"
-                        className="w-6 h-6 cursor-pointer ml-10 self-center fill-white hover:fill-black "
+                        className="w-6 h-6 cursor-pointer ml-2 self-center fill-gray-300 hover:fill-black "
                         onClick={() => {
                           const confirmDialog =
                             document.getElementById("confirmDialog");
@@ -347,7 +269,7 @@ export default function TableUsers() {
           </div>
 
           <div className="w-3/4">
-            <div className="text-gray-400 flex pt-20 justify-start w-1/4">
+            <div className="text-gray-400 flex pt-10 justify-start w-1/4">
               Total {users.length} users
             </div>
             <Paginator

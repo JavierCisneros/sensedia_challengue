@@ -4,7 +4,7 @@ import { userSchema } from "./validations/userValidations";
 const API_BASE_URL = process.env.SENSEDIA_API_SECRET_URL;
 const API_NEXT_URL = process.env.NEXT_PUBLIC_NEXT_API;
 export interface User {
-  id: number;
+  id: string;
   name: string;
   email: string;
   postsCount?: number;
@@ -130,7 +130,13 @@ export async function fetchUsersData() {
   }
 }
 
-export async function deleteUser(id: number) {
+export async function deleteUser(id: string) {
+  const uuidSchema = z.string().uuid();
+  const result = uuidSchema.safeParse(id);
+
+  if (!result.success) {
+    throw new Error("Invalid UUID format");
+  }
   try {
     const response = await fetch(`${API_BASE_URL}/users/${id}`, {
       method: "DELETE",
@@ -141,5 +147,26 @@ export async function deleteUser(id: number) {
     return response.json();
   } catch (error: any) {
     throw new Error(`Failed to delete user: ${error.message}`);
+  }
+}
+
+export async function getUser(id: string) {
+  const uuidSchema = z.string().uuid();
+  const result = uuidSchema.safeParse(id);
+
+  if (!result.success) {
+    throw new Error("Invalid UUID format");
+  }
+  try {
+    const response = await fetch(`${API_BASE_URL}/users/${id}`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch user: ${response.statusText}`);
+    }
+    const json = await response.json();
+    const user = json.user;
+
+    return user;
+  } catch (error: any) {
+    throw new Error(`Failed to fetch user: ${error.message}`);
   }
 }

@@ -42,7 +42,8 @@ export default function FormUsers() {
   };
 
   return (
-    <>
+    <div className="flex flex-col w-full items-center">
+      <h1 className="text-2xl font-bold text-black pb-4 w-3/4">Registry</h1>
       <div
         className="fixed inset-0 items-center justify-center z-50 backdrop-blur-sm confirm-dialog hidden"
         id="dialogUserExists"
@@ -171,6 +172,6 @@ export default function FormUsers() {
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 }
