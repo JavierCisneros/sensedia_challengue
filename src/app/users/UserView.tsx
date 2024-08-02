@@ -46,7 +46,7 @@ export default function UserView({ id }: { id: string }) {
           <h1 className="text-3xl font-bold pb-4 self-center">User</h1>
           <p className="text-lg">User ID: {id}</p>
           <p className="text-lg ">Name: {users?.name}</p>
-          <p className="text-lg ">Email: {users?.email}</p>
+          <p className="text-lg truncate">Email: {users?.email}</p>
         </div>
       </div>
       <Footer />

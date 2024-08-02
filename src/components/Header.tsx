@@ -15,21 +15,21 @@ export default function Header() {
           style={{ width: "auto", height: "auto" }}
         />
       </div>
-      <div className="bg-white h-auto flex items-center justify-between px-4 sticky top-40 mt-20 z-10">
+      <div className="bg-white h-auto flex items-center justify-between px-4 sticky top-40 mt-20 z-10 ">
         <div className="flex items-center">
           <Image
             src="/sensedia.svg"
             alt="sensedia logo"
-            className="py-6 pl-6"
+            className="py-6 pl-6 "
             width="0"
             height="0"
             style={{ width: "auto", height: "auto" }}
           />
-          <div className="invisible md:visible">
+          <div className="hidden md:block ">
             <BreadCrumb />
           </div>
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center ">
           <button className="m-2">
             <svg
               width="20"
