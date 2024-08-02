@@ -2,27 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import Paginator from "./Paginator";
-
-type City = {
-  id: number;
-  name: string;
-  state: string;
-};
-type Day = {
-  id: number;
-  name: string;
-};
-
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  postsCount?: number;
-  albumsCount?: number;
-  city: City;
-  days: Day[];
-}
-
+import { User } from "../lib/actions/userActions";
+import { deleteUser, fetchUsersData } from "../lib/actions/userActions";
 export default function TableUsers() {
   const [users, setUsers] = useState<User[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,89 +11,20 @@ export default function TableUsers() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchedVal, setSearchedVal] = useState("");
-  //env variable
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_SENSEDIA;
-  const API_NEXT_URL = process.env.NEXT_PUBLIC_NEXT_API;
   useEffect(() => {
-    const fetchUsersData = async () => {
+    const getUsers = async () => {
+      setLoading(true);
       try {
-        const response = await fetch(`${API_BASE_URL}/users`);
-        if (!response.ok) {
-          throw new Error(`Failed to fetch data: ${response.statusText}`);
-        }
-        const json = await response.json();
-        if (json.users && Array.isArray(json.users)) {
-          const usersData = await Promise.all(
-            json.users.map(async (user: User) => {
-              const [
-                postsResponse,
-                albumsResponse,
-                citiesResponse,
-                daysResponse,
-              ] = await Promise.all([
-                fetch(`${API_BASE_URL}/users/${user.id}/posts`),
-                fetch(`${API_BASE_URL}/users/${user.id}/albums`),
-                fetch(`${API_NEXT_URL}/cities`),
-                fetch(`${API_NEXT_URL}/days`),
-              ]);
-
-              if (
-                !postsResponse.ok ||
-                !albumsResponse.ok ||
-                !citiesResponse.ok ||
-                !daysResponse.ok
-              ) {
-                throw new Error("Failed to fetch posts or albums");
-              }
-
-              const postsJson = await postsResponse.json();
-              const albumsJson = await albumsResponse.json();
-              const cityJson = await citiesResponse.json();
-              const daysJson = await daysResponse.json();
-              // Extract the posts and albums array from the response object
-              const posts = postsJson.posts || [];
-              const albums = albumsJson.albums || [];
-              const city = cityJson.cities || [];
-              const days = daysJson.days || [];
-              return {
-                ...user,
-                postsCount: posts.length,
-                albumsCount: albums.length,
-                city,
-                days,
-              };
-            })
-          );
-          setUsers(usersData);
-        } else {
-          throw new Error("Invalid data structure");
-        }
+        const usersData = await fetchUsersData();
+        setUsers(usersData);
+        setLoading(false);
       } catch (error) {
-        throw new Error(`Failed to fetch data`);
-      } finally {
+        setError("Failed to fetch users data " + error);
         setLoading(false);
       }
     };
-
-    fetchUsersData();
+    getUsers();
   }, []);
-
-  ///function to delete user
-  const deleteUser = async (id: number) => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/users/${id}`, {
-        method: "DELETE",
-      });
-      if (!response.ok) {
-        throw new Error(`Failed to delete user: ${response.statusText}`);
-      }
-      const updatedUsers = users.filter((user) => user.id !== id);
-      setUsers(updatedUsers);
-    } catch (error: any) {
-      setError(error.message);
-    }
-  };
-
   // Get current users
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
@@ -122,6 +34,15 @@ export default function TableUsers() {
 
   // Change page
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+  const handleDeleteUser = async (id: number) => {
+    try {
+      await deleteUser(id);
+      setUsers(users.filter((user) => user.id !== id));
+    } catch (error) {
+      setError(`Failed to delete user`);
+    }
+  };
 
   if (loading) {
     return (
@@ -339,14 +260,33 @@ export default function TableUsers() {
                     key={user.id}
                     className=" border-b-2 border-b-gray-300 items-center "
                   >
-                    <td className="px-2.5 py-2 text-black  text-left flex flex-row">
+                    <td className="px-2.5 py-2 text-black  text-left ">
+                      {user.id}
+                    </td>
+                    <td className="px-2.5 py-2 text-gray-500 text-left">
+                      {user.name}
+                    </td>
+                    <td className="px-2.5 py-2 text-gray-500 text-left">
+                      {user.email}
+                    </td>
+                    <td className="px-2.5 py-2 text-gray-500 text-left">
+                      {user.city.name}
+                    </td>
+                    <td className="px-2.5 py-2 text-gray-500 text-left">
+                      {user.days.map((day) => day.name).join(", ")}
+                    </td>
+                    <td className="px-2.5 py-2 text-gray-500 text-center">
+                      {user.albumsCount}
+                    </td>
+                    <td className="px-2.5 py-2 text-gray-500 flex flex-row items-center justify-end text-center pl-8 h-full my-7">
+                      {user.postsCount}
                       <svg
                         fill="#000000"
                         version="1.1"
                         id="Capa_1"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 172.541 172.541"
-                        className="w-10 h-10 cursor-pointer self-center mr-4 fill-white hover:fill-black "
+                        className="w-6 h-6 cursor-pointer ml-10 self-center fill-white hover:fill-black "
                         onClick={() => {
                           const confirmDialog =
                             document.getElementById("confirmDialog");
@@ -357,7 +297,7 @@ export default function TableUsers() {
                             document.getElementById("confirm-delete-btn");
                           if (confirmDeleteBtn) {
                             confirmDeleteBtn.onclick = () => {
-                              deleteUser(user.id);
+                              handleDeleteUser(user.id);
                               if (confirmDialog) {
                                 confirmDialog.classList.toggle("hidden");
                               }
@@ -399,25 +339,6 @@ export default function TableUsers() {
                           />
                         </g>
                       </svg>
-                      {user.id}
-                    </td>
-                    <td className="px-2.5 py-2 text-gray-500 text-left">
-                      {user.name}
-                    </td>
-                    <td className="px-2.5 py-2 text-gray-500 text-left">
-                      {user.email}
-                    </td>
-                    <td className="px-2.5 py-2 text-gray-500 text-left">
-                      {user.city.name}
-                    </td>
-                    <td className="px-2.5 py-2 text-gray-500 text-left">
-                      {user.days.map((day) => day.name).join(", ")}
-                    </td>
-                    <td className="px-2.5 py-2 text-gray-500 text-center">
-                      {user.albumsCount}
-                    </td>
-                    <td className="px-2.5 py-2 text-gray-500 text-center">
-                      {user.postsCount}
                     </td>
                   </tr>
                 ))}
@@ -448,6 +369,7 @@ function SkeletonTable() {
       <input
         type="text"
         className="h-8 rounded-t-sm text-black border-gray-300 border-b-2 mb-4 w-3/4 bg-gray-100 p-2 focus: outline-none"
+        placeholder="Search"
       />
       <div className="w-3/4 h-96 overscroll-y-none overflow-y-auto ">
         <table className="w-full">
