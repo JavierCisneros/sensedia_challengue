@@ -18,7 +18,7 @@ export default function MenuDropDownMenu() {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
   const [userName, setUserName] = useState<string | null>(null);
   function getRandomName() {
-    const names: NamesType = NAMES; // Ensure TypeScript understands NAMES is of type NamesType
+    const names: NamesType = NAMES;
     const keys = Object.keys(names);
     const randomKey = keys[Math.floor(Math.random() * keys.length)];
     return names[randomKey].name;

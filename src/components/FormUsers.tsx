@@ -1,7 +1,7 @@
 "use client";
 
-import { newUser } from "@/lib/actions/userActions";
-import { userSchema } from "@/lib/actions/validations/userValidations";
+import { newUser } from "../lib/actions/userActions";
+import { userSchema } from "../lib/actions/validations/userValidations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React, { useTransition } from "react";
