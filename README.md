@@ -13,6 +13,7 @@
 3. ##### Deploy Back-End
 
    To ensure the project works correctly, you need to deploy the Sensedia Candidate Challenge API on a Linux server. Follow the instructions in the provided documentation [Sensedia API](https://bitbucket.org/sensedia/sensedia-candidate-challenge)
+![Captura de pantalla 2024-08-03 134427](https://github.com/user-attachments/assets/abc53381-a8b6-4970-87f2-433def4484e6)
 
 4. ##### Run development server
 
@@ -63,12 +64,13 @@
 
 ## Mobile compatibility
 
-<img src="https://github.com/user-attachments/assets/15a86fd6-ccf9-4659-8e43-2aabf3851e1f" alt="Screenshot_20240802-122623" width="150" height="auto" />
-<img src="https://github.com/user-attachments/assets/6b909d70-a972-4f3d-8091-1210df7b05bd" alt="Screenshot_20240802-122553" width="150" height="auto" />
-<img src="https://github.com/user-attachments/assets/c8a825ac-639b-4b52-9f4f-f52dbf8da155" alt="Screenshot_20240802-122516" width="150" height="auto" />
-<img src="https://github.com/user-attachments/assets/ca572a39-c3c1-412d-aa69-53e44b3ba1d2" alt="Screenshot_20240802-122607" width="150" height="auto" />
-<img src="https://github.com/user-attachments/assets/a862554f-8aee-43ec-a7df-39efa6642673" alt="Screenshot_20240802-122612" width="150" height="auto" />
-
+<div align="center">
+    <img src="https://github.com/user-attachments/assets/15a86fd6-ccf9-4659-8e43-2aabf3851e1f" alt="Screenshot_20240802-122623" width="150" height="auto" />
+    <img src="https://github.com/user-attachments/assets/6b909d70-a972-4f3d-8091-1210df7b05bd" alt="Screenshot_20240802-122553" width="150" height="auto" />
+    <img src="https://github.com/user-attachments/assets/c8a825ac-639b-4b52-9f4f-f52dbf8da155" alt="Screenshot_20240802-122516" width="150" height="auto" />
+    <img src="https://github.com/user-attachments/assets/ca572a39-c3c1-412d-aa69-53e44b3ba1d2" alt="Screenshot_20240802-122607" width="150" height="auto" />
+    <img src="https://github.com/user-attachments/assets/a862554f-8aee-43ec-a7df-39efa6642673" alt="Screenshot_20240802-122612" width="150" height="auto" />
+</div>
 
 ## Contact
 
