@@ -2,7 +2,7 @@
 import { z } from "zod";
 import { userSchema } from "./validations/userValidations";
 const API_BASE_URL = process.env.SENSEDIA_API_SECRET_URL;
-const API_NEXT_URL = process.env.NEXT_PUBLIC_NEXT_API;
+const API_NEXT_URL = process.env.PERSONAL_NEXT_API;
 export interface User {
   id: string;
   name: string;
