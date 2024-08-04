@@ -1,12 +1,12 @@
 ## Installation
 
 1. ##### Clone the repo
-   ```sh
+   ```bash
    $ git clone https://github.com/JavierCisneros/sensedia_challengue.git
    ```
 2. ##### Navigate to folder and install NPM packages
 
-   ```sh
+   ```bash
    $ npm i
    ```
 
@@ -17,7 +17,7 @@
 
 4. ##### Run development server
 
-   ```sh
+   ```bash
    $ npm run dev
    ```
 
@@ -34,6 +34,14 @@
   SENSEDIA_API_SECRET_URL=http://localhost:8080/api/v1
   PERSONAL_NEXT_API= http://localhost:3000/api/
   ```
+
+## Running the test
+
+To run the tests, ensure you have all the necessary packages installed. The unit tests are performed using Vitest.
+
+```bash
+$ npm run test
+```
 
 ## Walk through the application
 

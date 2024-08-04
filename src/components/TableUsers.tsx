@@ -4,10 +4,10 @@ import React, { useState, useEffect } from "react";
 import Paginator from "./Paginator";
 import { User } from "../lib/actions/userActions";
 import { deleteUser, fetchUsersData } from "../lib/actions/userActions";
-import { useRouter } from "next/navigation";
 import { Icons } from "./Icons";
+import Link from "next/link";
+import type { Day } from "../lib/actions/userActions";
 export default function TableUsers() {
-  const router = useRouter();
   const [users, setUsers] = useState<User[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(10);
@@ -29,6 +29,31 @@ export default function TableUsers() {
     };
     getUsers();
   }, []);
+
+  const getDisplayDays = (days: Day[]): string => {
+    const dayNames = days.map((day) => day.name);
+
+    if (dayNames.length === 7) {
+      return "All";
+    }
+
+    const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+    const weekends = ["Saturday", "Sunday"];
+
+    const isWeekdays = weekdays.every((day) => dayNames.includes(day));
+    const isWeekends = weekends.every((day) => dayNames.includes(day));
+
+    if (isWeekdays && !dayNames.some((day) => weekends.includes(day))) {
+      return "Workweek";
+    }
+
+    if (isWeekends && !dayNames.some((day) => weekdays.includes(day))) {
+      return "Weekends";
+    }
+
+    return dayNames.join(", ");
+  };
+
   // Get current users
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
@@ -148,53 +173,25 @@ export default function TableUsers() {
                     <td className="px-2.5 py-2 text-black  text-left cursor-auto">
                       {user.id}
                     </td>
-                    <td
-                      className="px-2.5 py-2 text-gray-500 text-left"
-                      onClick={() => {
-                        router.push(`/users/${user.id}`);
-                      }}
-                    >
-                      {user.name}
+                    <td className="px-2.5 py-2 text-gray-500 text-left">
+                      <Link href={`/users/${user.id}`}>{user.name}</Link>
                     </td>
-                    <td
-                      className="px-2.5 py-2 text-gray-500 text-left"
-                      onClick={() => {
-                        router.push(`/users/${user.id}`);
-                      }}
-                    >
-                      {user.email}
+                    <td className="px-2.5 py-2 text-gray-500 text-left">
+                      <Link href={`/users/${user.id}`}>{user.email}</Link>
                     </td>
-                    <td
-                      className="px-2.5 py-2 text-gray-500 text-left"
-                      onClick={() => {
-                        router.push(`/users/${user.id}`);
-                      }}
-                    >
-                      {user.city.name}
+                    <td className="px-2.5 py-2 text-gray-500 text-left">
+                      <Link href={`/users/${user.id}`}>{user.city.name}</Link>
                     </td>
-                    <td
-                      className="px-2.5 py-2 text-gray-500 text-left"
-                      onClick={() => {
-                        router.push(`/users/${user.id}`);
-                      }}
-                    >
-                      {user.days.map((day) => day.name).join(", ")}
+                    <td className="px-2.5 py-2 text-gray-500 text-left">
+                      <Link href={`/users/${user.id}`}>
+                        {getDisplayDays(user.days)}
+                      </Link>
                     </td>
-                    <td
-                      className="px-2.5 py-2 text-gray-500 text-center"
-                      onClick={() => {
-                        router.push(`/users/${user.id}`);
-                      }}
-                    >
-                      {user.albumsCount}
+                    <td className="px-2.5 py-2 text-gray-500 text-center">
+                      <Link href={`/users/${user.id}`}>{user.albumsCount}</Link>
                     </td>
-                    <td
-                      className="px-2.5 py-2 text-gray-500 text-center"
-                      onClick={() => {
-                        router.push(`/users/${user.id}`);
-                      }}
-                    >
-                      {user.postsCount}
+                    <td className="px-2.5 py-2 text-gray-500 text-center">
+                      <Link href={`/users/${user.id}`}>{user.postsCount}</Link>
                     </td>
                     <td className="px-2.5 py-2 text-gray-500 justify-center pr-5">
                       <svg

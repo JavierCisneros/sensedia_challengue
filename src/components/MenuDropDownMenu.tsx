@@ -2,7 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import { NAMES } from "./NamesConstants";
-import { MENU } from "./MenuContants";
+import { MENU } from "./MenuConstants";
 import Link from "next/link";
 
 type User = {

@@ -82,7 +82,7 @@ describe("Paginator", () => {
   });
 });
 //Working in how to test this components as well as this components use the next-router wich is not available in the test environment
-//Must mock the router but I can make next-router-mock to work
+//Must mock the router but I'm still doing some research about how to make next-router-mock to work
 
 /* describe("Table Users", () => {
   it("should render the table users", async () => {

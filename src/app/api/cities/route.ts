@@ -1,4 +1,4 @@
-import { CITIES } from "@/components/CitiesConstants";
+import { CITIES } from "../../../components/CitiesConstants";
 
 export async function GET() {
   const citiesArray = Object.values(CITIES);

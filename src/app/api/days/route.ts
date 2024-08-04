@@ -1,4 +1,4 @@
-import { DAYS } from "@/components/DaysConstants";
+import { DAYS } from "../../../components/DaysConstants";
 
 const DAY_ORDER = [
   "Monday",
