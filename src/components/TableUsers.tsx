@@ -75,7 +75,7 @@ export default function TableUsers() {
 
   if (loading) {
     return (
-      <div className="text-black text-xl flex justify-center items-center pt-20 h-96">
+      <div className="flex h-96 items-center justify-center pt-20 text-xl text-black">
         <Icons.loader />
       </div>
     );
@@ -90,38 +90,38 @@ export default function TableUsers() {
       (user) =>
         user.name.toLowerCase().includes(searchedVal.toLowerCase()) ||
         user.email.toLowerCase().includes(searchedVal.toLowerCase()) ||
-        user.id.toString().includes(searchedVal)
+        user.id.toString().includes(searchedVal),
     )
     .slice(indexOfFirstUser, indexOfLastUser);
 
   return (
     <>
       <div
-        className="fixed inset-0 items-center justify-center z-50 backdrop-blur-sm confirm-dialog hidden"
+        className="confirm-dialog fixed inset-0 z-50 hidden items-center justify-center backdrop-blur-sm"
         id="confirmDialog"
       >
-        <div className="relative px-4 min-h-screen md:flex md:items-center md:justify-center">
-          <div className=" opacity-25 w-full h-full absolute z-10 inset-0"></div>
-          <div className="bg-white rounded-lg md:max-w-md md:mx-auto p-4 fixed inset-x-0 bottom-0 z-50 mb-4 mx-4 md:relative shadow-lg">
-            <div className="md:flex items-center">
-              <div className="mt-4 md:mt-0 md:ml-6 text-center md:text-left">
+        <div className="relative min-h-screen px-4 md:flex md:items-center md:justify-center">
+          <div className="absolute inset-0 z-10 h-full w-full opacity-25"></div>
+          <div className="fixed inset-x-0 bottom-0 z-50 mx-4 mb-4 rounded-lg bg-white p-4 shadow-lg md:relative md:mx-auto md:max-w-md">
+            <div className="items-center md:flex">
+              <div className="mt-4 text-center md:ml-6 md:mt-0 md:text-left">
                 <p className="font-bold">Warning!</p>
-                <p className="text-sm text-gray-700 mt-1">
+                <p className="mt-1 text-sm text-gray-700">
                   Are you sure you want to delete this user?
                 </p>
               </div>
             </div>
-            <div className="text-center md:text-right mt-4 md:flex md:justify-end">
+            <div className="mt-4 text-center md:flex md:justify-end md:text-right">
               <button
                 id="confirm-delete-btn"
-                className="block w-full md:inline-block md:w-auto px-4 py-3 md:py-2 bg-red-200 text-red-700 rounded-lg font-semibold text-sm md:ml-2 md:order-2"
+                className="block w-full rounded-lg bg-red-200 px-4 py-3 text-sm font-semibold text-red-700 md:order-2 md:ml-2 md:inline-block md:w-auto md:py-2"
               >
                 Delete
               </button>
               <button
                 onClick={() => {}}
                 id="confirm-cancel-btn"
-                className="block w-full md:inline-block md:w-auto px-4 py-3 md:py-2 bg-gray-200 rounded-lg font-semibold text-sm mt-4 md:mt-0 md:order-1"
+                className="mt-4 block w-full rounded-lg bg-gray-200 px-4 py-3 text-sm font-semibold md:order-1 md:mt-0 md:inline-block md:w-auto md:py-2"
               >
                 Cancel
               </button>
@@ -130,27 +130,27 @@ export default function TableUsers() {
         </div>
       </div>
       {loading ? (
-        <div className="text-black text-xl flex justify-center items-center pt-20">
+        <div className="flex items-center justify-center pt-20 text-xl text-black">
           Loading...
         </div>
       ) : users.length === 0 ? (
         <SkeletonTable />
       ) : (
-        <div className="flex justify-center text-sm h-full pt-8 flex-col items-center bg-white pb-2 top-10">
-          <h1 className="text-2xl font-bold text-black pb-4 w-3/4">Users</h1>
+        <div className="top-10 flex h-full flex-col items-center justify-center bg-white pb-2 pt-8 text-sm">
+          <h1 className="w-3/4 pb-4 text-2xl font-bold text-black">Users</h1>
           <input
             type="text"
-            className="h-8 rounded-t-sm text-black border-gray-300 border-b-2 mb-4 w-3/4 bg-gray-100 p-2 focus: outline-none"
+            className="focus: mb-4 h-8 w-3/4 rounded-t-sm border-b-2 border-gray-300 bg-gray-100 p-2 text-black outline-none"
             onChange={(e) => setSearchedVal(e.target.value)}
             placeholder="Search"
           />
-          <div className="w-3/4 h-80 overscroll-y-none overflow-y-auto ">
-            <table className="w-full ">
-              <thead className="sticky top-0 bg-white z-10 ">
+          <div className="h-80 w-3/4 overflow-y-auto overscroll-y-none">
+            <table className="w-full">
+              <thead className="sticky top-0 z-10 bg-white">
                 <tr>
                   <th className="h-px bg-gray-300" colSpan={8}></th>
                 </tr>
-                <tr className="text-gray-500 ">
+                <tr className="text-gray-500">
                   <th className="px-2.5 py-4 text-left">USER</th>
                   <th className="px-2.5 py-4 text-left">NAME</th>
                   <th className="px-2.5 py-4 text-left">E-MAIL</th>
@@ -168,39 +168,39 @@ export default function TableUsers() {
                 {filteredUsers.map((user) => (
                   <tr
                     key={user.id}
-                    className=" border-b-2 border-b-gray-300 items-center cursor-pointer"
+                    className="cursor-pointer items-center border-b-2 border-b-gray-300"
                   >
-                    <td className="px-2.5 py-2 text-black  text-left cursor-auto">
+                    <td className="cursor-auto px-2.5 py-2 text-left text-black">
                       {user.id}
                     </td>
-                    <td className="px-2.5 py-2 text-gray-500 text-left">
+                    <td className="px-2.5 py-2 text-left text-gray-500">
                       <Link href={`/users/${user.id}`}>{user.name}</Link>
                     </td>
-                    <td className="px-2.5 py-2 text-gray-500 text-left">
+                    <td className="px-2.5 py-2 text-left text-gray-500">
                       <Link href={`/users/${user.id}`}>{user.email}</Link>
                     </td>
-                    <td className="px-2.5 py-2 text-gray-500 text-left">
+                    <td className="px-2.5 py-2 text-left text-gray-500">
                       <Link href={`/users/${user.id}`}>{user.city.name}</Link>
                     </td>
-                    <td className="px-2.5 py-2 text-gray-500 text-left">
+                    <td className="px-2.5 py-2 text-left text-gray-500">
                       <Link href={`/users/${user.id}`}>
                         {getDisplayDays(user.days)}
                       </Link>
                     </td>
-                    <td className="px-2.5 py-2 text-gray-500 text-center">
+                    <td className="px-2.5 py-2 text-center text-gray-500">
                       <Link href={`/users/${user.id}`}>{user.albumsCount}</Link>
                     </td>
-                    <td className="px-2.5 py-2 text-gray-500 text-center">
+                    <td className="px-2.5 py-2 text-center text-gray-500">
                       <Link href={`/users/${user.id}`}>{user.postsCount}</Link>
                     </td>
-                    <td className="px-2.5 py-2 text-gray-500 justify-center pr-5">
+                    <td className="justify-center px-2.5 py-2 pr-5 text-gray-500">
                       <svg
                         fill="#000000"
                         version="1.1"
                         id="Capa_1"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 172.541 172.541"
-                        className="w-6 h-6 cursor-pointer ml-2 self-center fill-gray-300 hover:fill-black "
+                        className="ml-2 h-6 w-6 cursor-pointer self-center fill-gray-300 hover:fill-black"
                         onClick={() => {
                           const confirmDialog =
                             document.getElementById("confirmDialog");
@@ -261,7 +261,7 @@ export default function TableUsers() {
           </div>
 
           <div className="w-3/4">
-            <div className="text-gray-400 flex pt-10 justify-start w-1/4">
+            <div className="flex w-1/4 justify-start pt-10 text-gray-400">
               Total {users.length} users
             </div>
             <Paginator
@@ -278,16 +278,16 @@ export default function TableUsers() {
 
 function SkeletonTable() {
   return (
-    <div className="flex justify-center text-sm h-full pt-8 flex-col items-center bg-white pb-2 top-10">
-      <h1 className="text-2xl font-bold text-black pb-4 w-3/4">Users</h1>
+    <div className="top-10 flex h-full flex-col items-center justify-center bg-white pb-2 pt-8 text-sm">
+      <h1 className="w-3/4 pb-4 text-2xl font-bold text-black">Users</h1>
       <input
         type="text"
-        className="h-8 rounded-t-sm text-black border-gray-300 border-b-2 mb-4 w-3/4 bg-gray-100 p-2 focus: outline-none"
+        className="focus: mb-4 h-8 w-3/4 rounded-t-sm border-b-2 border-gray-300 bg-gray-100 p-2 text-black outline-none"
         placeholder="Search"
       />
-      <div className="w-3/4 h-96 overscroll-y-none overflow-y-auto ">
+      <div className="h-96 w-3/4 overflow-y-auto overscroll-y-none">
         <table className="w-full">
-          <thead className="sticky top-0 bg-white z-10  ">
+          <thead className="sticky top-0 z-10 bg-white">
             <tr className="text-gray-500">
               <th className="px-2.5 py-4 text-left">USER</th>
               <th className="px-2.5 py-4 text-left">NAME</th>
@@ -299,30 +299,30 @@ function SkeletonTable() {
             </tr>
           </thead>
           <tbody>
-            <tr className=" border-b-2 border-b-gray-300 items-center ">
-              <td className="px-2.5 py-2 text-black cursor-trash text-left">
+            <tr className="items-center border-b-2 border-b-gray-300">
+              <td className="cursor-trash px-2.5 py-2 text-left text-black">
                 100
               </td>
-              <td className="px-2.5 py-2 text-gray-500 text-left">
+              <td className="px-2.5 py-2 text-left text-gray-500">
                 Javier Cisneros
               </td>
-              <td className="px-2.5 py-2 text-gray-500 text-left">
+              <td className="px-2.5 py-2 text-left text-gray-500">
                 fjca185@gmail.com
               </td>
-              <td className="px-2.5 py-2 text-gray-500 text-left">
+              <td className="px-2.5 py-2 text-left text-gray-500">
                 Guadalajara
               </td>
-              <td className="px-2.5 py-2 text-gray-500 text-left">Weekends</td>
-              <td className="px-2.5 py-2 text-gray-500 text-center">10</td>
-              <td className="px-2.5 py-2 text-gray-500 text-center">10</td>
+              <td className="px-2.5 py-2 text-left text-gray-500">Weekends</td>
+              <td className="px-2.5 py-2 text-center text-gray-500">10</td>
+              <td className="px-2.5 py-2 text-center text-gray-500">10</td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div className="text-black text-sm flex  items-center pt-20 justify-start w-3/4">
+      <div className="flex w-3/4 items-center justify-start pt-20 text-sm text-black">
         Total 100
       </div>
-      <div className="flex space-x-2 mt-2 text-xl pb-4">
+      <div className="mt-2 flex space-x-2 pb-4 text-xl">
         <button className="active text-black"></button>
       </div>
     </div>

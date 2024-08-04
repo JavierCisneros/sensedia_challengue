@@ -28,7 +28,7 @@ export default function UserView({ id }: { id: string }) {
     return (
       <>
         <Header />
-        <div className="text-black text-xl flex justify-center items-center pt-20 h-96">
+        <div className="flex h-96 items-center justify-center pt-20 text-xl text-black">
           <Icons.loader />
         </div>
       </>
@@ -38,15 +38,15 @@ export default function UserView({ id }: { id: string }) {
     <>
       <Header />
 
-      <div className="text-black text-xl mt-10 flex justify-center pb-20 ">
-        <div className="flex flex-col w-2/4 rounded-xl border-solid border-2 border-gray-400 p-10">
-          <div className="flex items-center justify-center rounded-full w-20 h-20 bg-purple_sensedia text-white text-4xl mb-5 self-center">
+      <div className="mt-10 flex justify-center pb-20 text-xl text-black">
+        <div className="flex w-2/4 flex-col rounded-xl border-2 border-solid border-gray-400 p-10">
+          <div className="mb-5 flex h-20 w-20 items-center justify-center self-center rounded-full bg-purple_sensedia text-4xl text-white">
             UN
           </div>
-          <h1 className="text-3xl font-bold pb-4 self-center">User</h1>
+          <h1 className="self-center pb-4 text-3xl font-bold">User</h1>
           <p className="text-lg">User ID: {id}</p>
-          <p className="text-lg ">Name: {users?.name}</p>
-          <p className="text-lg truncate">Email: {users?.email}</p>
+          <p className="text-lg">Name: {users?.name}</p>
+          <p className="truncate text-lg">Email: {users?.email}</p>
         </div>
       </div>
       <Footer />

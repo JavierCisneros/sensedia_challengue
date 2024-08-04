@@ -6,9 +6,9 @@ export default function page() {
   return (
     <>
       <Header />
-      <main className="bg-white h-full w-full sticky pb-20">
-        <div className="flex flex-wrap justify-start h-auto bg-purple_sensedia w-full px-4 md:px-36 pt-4 text-white">
-          <div className="flex items-center w-full md:w-auto mb-4 md:mb-0">
+      <main className="sticky h-full w-full bg-white pb-20">
+        <div className="flex h-auto w-full flex-wrap justify-start bg-purple_sensedia px-4 pt-4 text-white md:px-36">
+          <div className="mb-4 flex w-full items-center md:mb-0 md:w-auto">
             <Image
               src="/type.svg"
               alt="Type of team icon"
@@ -22,7 +22,7 @@ export default function page() {
               <p>Society</p>
             </div>
           </div>
-          <div className="flex items-center w-full md:w-auto mb-4 md:mb-0">
+          <div className="mb-4 flex w-full items-center md:mb-0 md:w-auto">
             <Image
               src="/level.svg"
               alt="Level icon"
@@ -36,7 +36,7 @@ export default function page() {
               <p>Semi-Professional</p>
             </div>
           </div>
-          <div className="flex items-center w-full md:w-auto mb-4 md:mb-0">
+          <div className="mb-4 flex w-full items-center md:mb-0 md:w-auto">
             <Image
               src="/trophy.svg"
               alt="Trophy icon"

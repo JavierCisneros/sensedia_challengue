@@ -42,23 +42,23 @@ export default function FormUsers() {
   };
 
   return (
-    <div className="flex flex-col w-full items-center">
+    <div className="flex w-full flex-col items-center">
       <div
-        className="fixed inset-0 items-center justify-center z-50 backdrop-blur-sm confirm-dialog hidden"
+        className="confirm-dialog fixed inset-0 z-50 hidden items-center justify-center backdrop-blur-sm"
         id="dialogUserExists"
       >
-        <div className="relative px-4 min-h-screen md:flex md:items-center md:justify-center">
-          <div className=" opacity-25 w-full h-full absolute z-10 inset-0"></div>
-          <div className="bg-white rounded-lg md:max-w-md md:mx-auto p-4 fixed inset-x-0 bottom-0 z-50 mb-4 mx-4 md:relative shadow-lg">
-            <div className="md:flex items-center">
-              <div className="mt-4 md:mt-0 md:ml-6 text-center md:text-left">
+        <div className="relative min-h-screen px-4 md:flex md:items-center md:justify-center">
+          <div className="absolute inset-0 z-10 h-full w-full opacity-25"></div>
+          <div className="fixed inset-x-0 bottom-0 z-50 mx-4 mb-4 rounded-lg bg-white p-4 shadow-lg md:relative md:mx-auto md:max-w-md">
+            <div className="items-center md:flex">
+              <div className="mt-4 text-center md:ml-6 md:mt-0 md:text-left">
                 <p className="font-bold">Warning!</p>
-                <p className="text-sm text-gray-700 mt-1">
+                <p className="mt-1 text-sm text-gray-700">
                   User already exists
                 </p>
               </div>
             </div>
-            <div className="text-center md:text-right mt-4 md:flex md:justify-end">
+            <div className="mt-4 text-center md:flex md:justify-end md:text-right">
               <button
                 onClick={() => {
                   console.log("cancel");
@@ -69,7 +69,7 @@ export default function FormUsers() {
                   }
                 }}
                 id="cancel-btn"
-                className="block w-full md:inline-block md:w-auto px-4 py-3 md:py-2 bg-purple_sensedia rounded-lg font-semibold text-sm mt-4 md:mt-0 md:order-1"
+                className="mt-4 block w-full rounded-lg bg-purple_sensedia px-4 py-3 text-sm font-semibold md:order-1 md:mt-0 md:inline-block md:w-auto md:py-2"
               >
                 Cancel
               </button>
@@ -78,44 +78,44 @@ export default function FormUsers() {
         </div>
       </div>
 
-      <div className="flex border-2 w-3/4 rounded-lg pb-8 h-screen/2 flex-col items-start">
-        <h2 className="text-xl text-gray-500 ml-10 w-full text-left pt-10 ">
+      <div className="h-screen/2 flex w-3/4 flex-col items-start rounded-lg border-2 pb-8">
+        <h2 className="ml-10 w-full pt-10 text-left text-xl text-gray-500">
           Registry
         </h2>
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-          <div className="w-full flex flex-col md:flex-row">
+          <div className="flex w-full flex-col md:flex-row">
             <div className="w-full md:w-1/2">
               <div className="ml-10">
                 <input
                   type="name"
                   {...register("name")}
-                  className="rounded-t-lg w-10/12 my-6 border-gray-300 border-b-2 bg-gray-100 pl-2"
+                  className="my-6 w-10/12 rounded-t-lg border-b-2 border-gray-300 bg-gray-100 pl-2"
                   placeholder="Name *"
                 />
                 {errors.name && (
-                  <p className="text-red-500 ml-10">{errors.name.message}</p>
+                  <p className="ml-10 text-red-500">{errors.name.message}</p>
                 )}
               </div>
               <div className="ml-10">
                 <input
                   type="email"
                   {...register("email")}
-                  className="rounded-t-lg w-10/12 my-6 border-gray-300 border-b-2 bg-gray-100 pl-2"
+                  className="my-6 w-10/12 rounded-t-lg border-b-2 border-gray-300 bg-gray-100 pl-2"
                   placeholder="Email *"
                 />
                 {errors.email && (
-                  <p className="text-red-500 ml-10">{errors.email.message}</p>
+                  <p className="ml-10 text-red-500">{errors.email.message}</p>
                 )}
               </div>
               <div className="ml-10">
                 <input
                   type="text"
                   {...register("fullName")}
-                  className="rounded-t-lg w-10/12 my-6 border-gray-300 border-b-2 bg-gray-100 pl-2"
+                  className="my-6 w-10/12 rounded-t-lg border-b-2 border-gray-300 bg-gray-100 pl-2"
                   placeholder="Full Name"
                 />
                 {errors.fullName && (
-                  <p className="text-red-500 ml-10">
+                  <p className="ml-10 text-red-500">
                     {errors.fullName.message}
                   </p>
                 )}
@@ -126,11 +126,11 @@ export default function FormUsers() {
                 <input
                   type="text"
                   {...register("city")}
-                  className="rounded-t-lg w-10/12 my-6 border-gray-300 border-b-2 bg-gray-100 pl-2"
+                  className="my-6 w-10/12 rounded-t-lg border-b-2 border-gray-300 bg-gray-100 pl-2"
                   placeholder="City"
                 />
                 {errors.city && (
-                  <p className="text-red-500 ml-10">{errors.city.message}</p>
+                  <p className="ml-10 text-red-500">{errors.city.message}</p>
                 )}
               </div>
               <div className="mx-10 my-6 flex flex-wrap gap-4 pr-10">
@@ -142,30 +142,30 @@ export default function FormUsers() {
                         id={day}
                         value={day}
                         {...register("days")}
-                        className=" accent-purple_sensedia h-5 w-5"
+                        className="h-5 w-5 accent-purple_sensedia"
                       />
                       <label htmlFor={day} className="ml-2">
                         {day}
                       </label>
                     </div>
-                  )
+                  ),
                 )}
                 {errors.days && (
-                  <p className="text-red-500 ml-10">{errors.days.message}</p>
+                  <p className="ml-10 text-red-500">{errors.days.message}</p>
                 )}
               </div>
             </div>
           </div>
-          <div className="ml-10 flex s">
+          <div className="s ml-10 flex">
             <button
               type="submit"
-              className="bg-purple_sensedia text-white px-4 py-2 rounded-full my-6"
+              className="my-6 rounded-full bg-purple_sensedia px-4 py-2 text-white"
             >
               {isPending ? "Submitting..." : "Submit"}
             </button>{" "}
             <button
               type="submit"
-              className="text-purple_sensedia ml-8 px-4 py-2 rounded-full my-6"
+              className="my-6 ml-8 rounded-full px-4 py-2 text-purple_sensedia"
             >
               Cancel
             </button>

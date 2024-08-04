@@ -47,7 +47,7 @@ const fetchWithRetry = async (
   url: string,
   options = {},
   retries = 3,
-  delay = 300
+  delay = 300,
 ): Promise<Response> => {
   for (let i = 0; i < retries; i++) {
     try {
@@ -62,7 +62,7 @@ const fetchWithRetry = async (
         await new Promise((resolve) => setTimeout(resolve, delay));
       } else {
         throw new Error(
-          `Failed to fetch ${url} after ${retries} attempts: ${error}`
+          `Failed to fetch ${url} after ${retries} attempts: ${error}`,
         );
       }
     }
@@ -118,7 +118,7 @@ export async function fetchUsersData() {
               days: [],
             };
           }
-        })
+        }),
       );
       return usersData;
     } else {

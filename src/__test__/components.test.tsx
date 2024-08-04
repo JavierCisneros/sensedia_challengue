@@ -15,8 +15,8 @@ describe("Footer", () => {
     render(<Footer />);
     expect(
       screen.getByText(
-        "Francisco Javier Cisneros Avila ◦ Sensedia Technical Challenge 2024"
-      )
+        "Francisco Javier Cisneros Avila ◦ Sensedia Technical Challenge 2024",
+      ),
     );
   });
 });

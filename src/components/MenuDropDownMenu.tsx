@@ -55,18 +55,18 @@ export default function MenuDropDownMenu() {
   }, []);
   return (
     <div
-      className="relative w-48 border-l-2 border-gray-500 border-solid"
+      className="relative w-48 border-l-2 border-solid border-gray-500"
       id="dropdownButton"
     >
       <button
         type="button"
         onClick={() => setDropdownVisible((prev) => !prev)}
-        className="inline-flex w-full justify-center items-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-50"
+        className="inline-flex w-full items-center justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-50"
         id="menu-button"
         aria-expanded={isDropdownVisible}
         aria-haspopup="true"
       >
-        <div className="flex items-center justify-center rounded-full w-10 h-10 bg-purple_sensedia text-white">
+        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-purple_sensedia text-white">
           {userName ? getInitials(userName) : ""}
         </div>
         {userName ? userName : "Loading..."}
@@ -85,7 +85,7 @@ export default function MenuDropDownMenu() {
       </button>
       <div
         ref={dropdown}
-        className={`absolute bg-first_header border-[2px] mt-2 origin-top-right w-auto flex flex-col text-white ${
+        className={`absolute mt-2 flex w-auto origin-top-right flex-col border-[2px] bg-first_header text-white ${
           isDropdownVisible ? "" : "hidden"
         }`}
         id="dropdown"
@@ -94,7 +94,7 @@ export default function MenuDropDownMenu() {
           <Link
             href={`/${item.name}`}
             key={item.id}
-            className="cursor-pointer hover:bg-gray-500 p-4 hover:border-l-2 hover:border-purple_sensedia hover:border-solid"
+            className="cursor-pointer p-4 hover:border-l-2 hover:border-solid hover:border-purple_sensedia hover:bg-gray-500"
           >
             {item.name}
           </Link>

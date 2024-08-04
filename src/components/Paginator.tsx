@@ -38,29 +38,29 @@ const Paginator = ({ totalPages, currentPage, paginate }: PaginatorProps) => {
           onClick={() => paginate(i)}
           className={
             i === currentPage
-              ? "active text-white bg-gray-400 roundes px-4 h-full rounded-full"
-              : "text-gray-500 px-4 h-full"
+              ? "active roundes h-full rounded-full bg-gray-400 px-4 text-white"
+              : "h-full px-4 text-gray-500"
           }
         >
           {i}
-        </button>
+        </button>,
       );
     }
 
     return (
-      <div className="border-solid border-gray-400 border-2 h-12 rounded-full">
+      <div className="h-12 rounded-full border-2 border-solid border-gray-400">
         {buttons}
       </div>
     );
   };
 
   return (
-    <div className="w-auto flex items-center justify-center invisible lg:visible flex-col lg:flex-row">
-      <div className="w-1/4 flex flex-col lg:flex-row"></div>
-      <div className="flex space-x-2 mt-2 text-xl pb-4 justify-center items-center w-fit">
+    <div className="invisible flex w-auto flex-col items-center justify-center lg:visible lg:flex-row">
+      <div className="flex w-1/4 flex-col lg:flex-row"></div>
+      <div className="mt-2 flex w-fit items-center justify-center space-x-2 pb-4 text-xl">
         <button
           onClick={handlePrevious}
-          className="text-gray-400 rounded-full border-solid border-2 border-gray-400 p-2 w-28 visible "
+          className="visible w-28 rounded-full border-2 border-solid border-gray-400 p-2 text-gray-400"
           disabled={currentPage === 1}
         >
           Previous
@@ -69,7 +69,7 @@ const Paginator = ({ totalPages, currentPage, paginate }: PaginatorProps) => {
         <button
           onClick={() => paginate(1)}
           className={
-            currentPage === 1 ? "active text-gray-400" : "text-gray-400 "
+            currentPage === 1 ? "active text-gray-400" : "text-gray-400"
           }
         >
           1
@@ -88,18 +88,18 @@ const Paginator = ({ totalPages, currentPage, paginate }: PaginatorProps) => {
 
         <button
           onClick={handleNext}
-          className="text-gray-400 rounded-full border-solid border-2 border-gray-400 p-2 w-28 visible"
+          className="visible w-28 rounded-full border-2 border-solid border-gray-400 p-2 text-gray-400"
           disabled={currentPage === totalPages}
         >
           Next
         </button>
       </div>
-      <div className="flex items-center justify-end w-1/4">
-        <p className=" text-gray-400">Go to Page</p>
+      <div className="flex w-1/4 items-center justify-end">
+        <p className="text-gray-400">Go to Page</p>
         <select
           value={currentPage}
           onChange={handleSelectPage}
-          className="flex ml-2 text-black border-solid border-b-2 border-gray-400 justify-end"
+          className="ml-2 flex justify-end border-b-2 border-solid border-gray-400 text-black"
         >
           {[...Array(totalPages)].map((_, index) => (
             <option key={index} value={index + 1}>

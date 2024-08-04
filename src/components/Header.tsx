@@ -4,7 +4,7 @@ import MenuDropDownMenu from "./MenuDropDownMenu";
 export default function Header() {
   return (
     <header>
-      <div className="bg-first_header h-18 flex items-center justify-center md:justify-start fixed top-0 z-20 w-full">
+      <div className="h-18 fixed top-0 z-20 flex w-full items-center justify-center bg-first_header md:justify-start">
         <Image
           src="/sensedia_train.svg"
           alt="Treinador De Futebol"
@@ -15,21 +15,21 @@ export default function Header() {
           style={{ width: "auto", height: "auto" }}
         />
       </div>
-      <div className="bg-white h-auto flex items-center justify-between px-4 sticky top-40 mt-20 z-10 ">
+      <div className="sticky top-40 z-10 mt-20 flex h-auto items-center justify-between bg-white px-4">
         <div className="flex items-center">
           <Image
             src="/sensedia.svg"
             alt="sensedia logo"
-            className="py-6 pl-6 "
+            className="py-6 pl-6"
             width="0"
             height="0"
             style={{ width: "auto", height: "auto" }}
           />
-          <div className="hidden md:block ">
+          <div className="hidden md:block">
             <BreadCrumb />
           </div>
         </div>
-        <div className="flex items-center ">
+        <div className="flex items-center">
           <button className="m-2">
             <svg
               width="20"
@@ -58,7 +58,7 @@ export default function Header() {
               />
             </svg>
           </button>
-          <div className="h-auto w-px bg-gray-500 mx-1"></div>
+          <div className="mx-1 h-auto w-px bg-gray-500"></div>
           <MenuDropDownMenu />
         </div>
       </div>

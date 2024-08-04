@@ -13,7 +13,7 @@ export default function UserPage({ params }: { params: { id: string } }) {
   return (
     <Suspense
       fallback={
-        <div className="text-black text-xl flex justify-center items-center pt-20 h-auto">
+        <div className="flex h-auto items-center justify-center pt-20 text-xl text-black">
           <img src="loader.svg" alt="loader" loading="lazy" />
         </div>
       }
