@@ -11,13 +11,14 @@ import { z } from "zod";
 type FormData = z.infer<typeof userSchema>;
 
 export default function FormUsers() {
+  //useTransition to handle the form submission
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
-  // Initialize the form with react-hook-form
+  // Initialize the form with react-hook-form and zodResolver
   const form = useForm<FormData>({
     resolver: zodResolver(userSchema),
   });
-
+  // Destructure the form methods and errors
   const {
     register,
     handleSubmit,
@@ -43,6 +44,7 @@ export default function FormUsers() {
 
   return (
     <div className="flex w-full flex-col items-center">
+      {/* Component to advide of existing user */}
       <div
         className="confirm-dialog fixed inset-0 z-50 hidden items-center justify-center backdrop-blur-sm"
         id="dialogUserExists"
@@ -77,7 +79,7 @@ export default function FormUsers() {
           </div>
         </div>
       </div>
-
+      {/* Form to create a new user */}
       <div className="h-screen/2 flex w-3/4 flex-col items-start rounded-lg border-2 pb-8">
         <h2 className="ml-10 w-full pt-10 text-left text-xl text-gray-500">
           Registry

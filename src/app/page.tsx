@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-
+//Home page with links to the users list and the user registry
 export default function Home() {
   return (
     <>

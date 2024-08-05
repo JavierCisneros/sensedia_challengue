@@ -2,7 +2,9 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { z } from "zod";
 import UserView from "../UserView";
-
+//Page that receibe the user id and render the user view component with the user data
+//if the user id is invalid, the page will return a 404 error
+//if the user id is valid, the page will render the user view component
 export default function UserPage({ params }: { params: { id: string } }) {
   try {
     z.string().uuid().parse(params.id);

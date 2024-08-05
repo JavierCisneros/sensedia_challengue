@@ -8,13 +8,14 @@ import { Icons } from "./Icons";
 import Link from "next/link";
 import type { Day } from "../lib/actions/userActions";
 export default function TableUsers() {
+  // Create states for users, current page, users per page, loading and error
   const [users, setUsers] = useState<User[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(10);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchedVal, setSearchedVal] = useState("");
-
+  // Fetch users data when the component mounts
   useEffect(() => {
     const getUsers = async () => {
       setLoading(true);
@@ -29,7 +30,7 @@ export default function TableUsers() {
     };
     getUsers();
   }, []);
-
+  // Function to get the display days bases on the occurrence of the days
   const getDisplayDays = (days: Day[]): string => {
     const dayNames = days.map((day) => day.name);
 
@@ -64,6 +65,7 @@ export default function TableUsers() {
   // Change page
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
+  // Function to handle the delete user
   const handleDeleteUser = async (id: string) => {
     try {
       await deleteUser(id);
@@ -72,7 +74,7 @@ export default function TableUsers() {
       setError(`Failed to delete user`);
     }
   };
-
+  //Loading state
   if (loading) {
     return (
       <div className="flex h-96 items-center justify-center pt-20 text-xl text-black">
@@ -80,11 +82,11 @@ export default function TableUsers() {
       </div>
     );
   }
-
+  //Error state
   if (error) {
     return <div>Error: {error}</div>;
   }
-
+  //Filter users based on search value and display users
   const filteredUsers = users
     .filter(
       (user) =>
@@ -96,6 +98,7 @@ export default function TableUsers() {
 
   return (
     <>
+      {/* Confirm dialog to delete user */}
       <div
         className="confirm-dialog fixed inset-0 z-50 hidden items-center justify-center backdrop-blur-sm"
         id="confirmDialog"
@@ -129,6 +132,7 @@ export default function TableUsers() {
           </div>
         </div>
       </div>
+      {/* Display users or loader if user.lentgh is equal to 0 shows an Skeleton Table*/}
       {loading ? (
         <div className="flex items-center justify-center pt-20 text-xl text-black">
           Loading...

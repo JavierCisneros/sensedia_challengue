@@ -4,55 +4,65 @@ import { useRef, useEffect, useState } from "react";
 import { NAMES } from "./NamesConstants";
 import { MENU } from "./MenuConstants";
 import Link from "next/link";
-
+// Define the user type
 type User = {
   id: number;
   name: string;
 };
+// Define the names type
 type NamesType = {
   [key: string]: User;
 };
 
 export default function MenuDropDownMenu() {
+  // Create a reference to the dropdown element
   const dropdown = useRef<HTMLDivElement>(null);
+  // Create a state to control the dropdown visibility
   const [isDropdownVisible, setDropdownVisible] = useState(false);
+  // Create a state to store the user name
   const [userName, setUserName] = useState<string | null>(null);
+  // Function to get a random name from the list
   function getRandomName() {
     const names: NamesType = NAMES;
     const keys = Object.keys(names);
     const randomKey = keys[Math.floor(Math.random() * keys.length)];
     return names[randomKey].name;
   }
+  // Function to get the initials of a name
   function getInitials(name: string) {
     const nameParts = name.split(" ");
     const initials = nameParts.map((part) => part[0]).join("");
     return initials;
   }
-
+  // Function to handle the click outside the dropdown and close it
   function handleClickOutside(event: MouseEvent) {
     if (dropdown.current && !dropdown.current.contains(event.target as Node)) {
       setDropdownVisible(false);
     }
   }
-
+  // Function to handle the keydown event and close the dropdown
   function handleKeyDown(event: KeyboardEvent) {
     if (event.key === "Escape") {
       setDropdownVisible((prev) => !prev);
     }
   }
-
+  // Add event listeners and generate random name
   useEffect(() => {
+    // Add event listeners
     document.addEventListener("mousedown", handleClickOutside);
     document.addEventListener("keydown", handleKeyDown);
+
+    // Generate random name and set user name
+    const name = getRandomName();
+    setUserName(name);
+
+    // Cleanup function to remove event listeners
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
-  useEffect(() => {
-    const name = getRandomName();
-    setUserName(name);
-  }, []);
+
   return (
     <div
       className="relative w-48 border-l-2 border-solid border-gray-500"
@@ -90,6 +100,7 @@ export default function MenuDropDownMenu() {
         }`}
         id="dropdown"
       >
+        {/* Render the items from the menu dinamically */}
         {Object.values(MENU).map((item) => (
           <Link
             href={`/${item.name}`}

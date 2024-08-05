@@ -2,6 +2,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import TableUsers from "@/components/TableUsers";
 import Image from "next/image";
+//Page that render basi information about the team and the table with the users
 export default function page() {
   return (
     <>

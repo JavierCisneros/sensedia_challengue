@@ -3,6 +3,8 @@ import { z } from "zod";
 import { userSchema } from "./validations/userValidations";
 const API_BASE_URL = process.env.SENSEDIA_API_SECRET_URL;
 const API_NEXT_URL = process.env.PERSONAL_NEXT_API;
+
+// types for the user data, days and city
 export interface User {
   id: string;
   name: string;
@@ -22,7 +24,7 @@ export type Day = {
   id: number;
   name: string;
 };
-
+// Function to create a new user
 export async function newUser(userInfo: z.infer<typeof userSchema>) {
   //validation
   const result = userSchema.safeParse(userInfo);
@@ -43,6 +45,15 @@ export async function newUser(userInfo: z.infer<typeof userSchema>) {
   }
   return response.json();
 }
+/**
+ * Fetches a resource with retry logic.
+ * @param {string} url - The URL to fetch.
+ * @param {Object} [options={}] - The options to pass to the fetch call.
+ * @param {number} [retries=3] - The number of retry attempts.
+ * @param {number} [delay=300] - The delay between retries in milliseconds.
+ * @returns {Promise<Response>} - The fetch response.
+ * @throws {Error} - Throws an error if all retry attempts fail.
+ */
 const fetchWithRetry = async (
   url: string,
   options = {},
@@ -69,7 +80,7 @@ const fetchWithRetry = async (
   }
   throw new Error("Unreachable code");
 };
-
+// Function to fetch the users data with the posts and albums count and the city and days data
 export async function fetchUsersData() {
   try {
     const response = await fetchWithRetry(`${API_BASE_URL}/users`);
@@ -90,17 +101,17 @@ export async function fetchUsersData() {
               fetchWithRetry(`${API_NEXT_URL}/cities`),
               fetchWithRetry(`${API_NEXT_URL}/days`),
             ]);
-
+            // Get the posts and albums data for the user and the city and days data
             const postsJson = await postsResponse.json();
             const albumsJson = await albumsResponse.json();
             const cityJson = await citiesResponse.json();
             const daysJson = await daysResponse.json();
-
+            // Get the posts and albums data from the JSON response
             const posts = postsJson.posts || [];
             const albums = albumsJson.albums || [];
             const city = cityJson.cities || [];
             const days = daysJson.days || [];
-
+            // Return the user data with the posts and albums count and the city and days data
             return {
               ...user,
               postsCount: posts.length,
@@ -109,6 +120,7 @@ export async function fetchUsersData() {
               days,
             };
           } catch (error) {
+            // Log the error and return the user data with the default values
             console.error(`Error fetching data for user ${user.id}:`, error);
             return {
               ...user,
@@ -131,6 +143,7 @@ export async function fetchUsersData() {
 }
 
 export async function deleteUser(id: string) {
+  //Validation for the UUID
   const uuidSchema = z.string().uuid();
   const result = uuidSchema.safeParse(id);
 
@@ -138,6 +151,7 @@ export async function deleteUser(id: string) {
     throw new Error("Invalid UUID format");
   }
   try {
+    // Fetch the delete user API with the user ID
     const response = await fetch(`${API_BASE_URL}/users/${id}`, {
       method: "DELETE",
     });
@@ -151,6 +165,7 @@ export async function deleteUser(id: string) {
 }
 
 export async function getUser(id: string) {
+  //Validation for the UUID
   const uuidSchema = z.string().uuid();
   const result = uuidSchema.safeParse(id);
 
@@ -158,6 +173,7 @@ export async function getUser(id: string) {
     throw new Error("Invalid UUID format");
   }
   try {
+    // Fetch the user data with the user ID
     const response = await fetch(`${API_BASE_URL}/users/${id}`);
     if (!response.ok) {
       throw new Error(`Failed to fetch user: ${response.statusText}`);

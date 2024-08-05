@@ -1,27 +1,33 @@
+// Type: Paginator Component
 type PaginatorProps = {
   totalPages: number;
   currentPage: number;
   paginate: (pageNumber: number) => void;
 };
-
-const Paginator = ({ totalPages, currentPage, paginate }: PaginatorProps) => {
+// Paginator Component
+export default function Paginator({
+  totalPages,
+  currentPage,
+  paginate,
+}: PaginatorProps) {
+  // Function to handle the previous page
   const handlePrevious = () => {
     if (currentPage > 1) {
       paginate(currentPage - 1);
     }
   };
-
+  // Function to handle the next page
   const handleNext = () => {
     if (currentPage < totalPages) {
       paginate(currentPage + 1);
     }
   };
-
+  // Function to handle the select page
   const handleSelectPage = (e: any) => {
     const page = Number(e.target.value);
     paginate(page);
   };
-
+  // Function to get the pagination buttons based on the current page and total pages
   const getPaginationButtons = () => {
     let startPage = Math.max(currentPage - 1, 1);
     let endPage = Math.min(startPage + 2, totalPages);
@@ -32,6 +38,7 @@ const Paginator = ({ totalPages, currentPage, paginate }: PaginatorProps) => {
 
     const buttons = [];
     for (let i = startPage; i <= endPage; i++) {
+      // Add the current page button with the active class and the rest with the default class
       buttons.push(
         <button
           key={i}
@@ -53,7 +60,7 @@ const Paginator = ({ totalPages, currentPage, paginate }: PaginatorProps) => {
       </div>
     );
   };
-
+  // Return Paginator Component
   return (
     <div className="invisible flex w-auto flex-col items-center justify-center lg:visible lg:flex-row">
       <div className="flex w-1/4 flex-col lg:flex-row"></div>
@@ -101,6 +108,7 @@ const Paginator = ({ totalPages, currentPage, paginate }: PaginatorProps) => {
           onChange={handleSelectPage}
           className="ml-2 flex justify-end border-b-2 border-solid border-gray-400 text-black"
         >
+          // Render the options based on the total pages
           {[...Array(totalPages)].map((_, index) => (
             <option key={index} value={index + 1}>
               {index + 1}
@@ -110,6 +118,4 @@ const Paginator = ({ totalPages, currentPage, paginate }: PaginatorProps) => {
       </div>
     </div>
   );
-};
-
-export default Paginator;
+}

@@ -2,7 +2,7 @@ import Footer from "@/components/Footer";
 import FormUsers from "@/components/FormUsers";
 import Header from "@/components/Header";
 import Image from "next/image";
-
+//A help component with some basic information about the registry form
 export default function Page() {
   return (
     <>

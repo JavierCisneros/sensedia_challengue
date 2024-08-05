@@ -1,5 +1,6 @@
 import { z } from "zod";
-export const diasSemana = z.enum([
+// Define the days of the week enum
+export const daysOfWeek = z.enum([
   "Sun",
   "Mon",
   "Tue",
@@ -8,12 +9,13 @@ export const diasSemana = z.enum([
   "Fri",
   "Sat",
 ]);
+// Define the user schema with the required fields
 export const userSchema = z.object({
   name: z.string().min(3, "Add a valid user name").max(255),
   email: z.string().email("Invalid email"),
   fullName: z.string().max(255),
   city: z.string().max(255),
   days: z
-    .array(diasSemana, { message: "Select at least one day" })
+    .array(daysOfWeek, { message: "Select at least one day" })
     .nonempty({ message: "Select at least one day" }),
 });

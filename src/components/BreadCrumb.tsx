@@ -2,8 +2,9 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-
+//A breadcrumb component that render the current page path
 export default function BreadCrumb() {
+  //get the current page path and split it into segments
   const pathname = usePathname();
 
   const segments = pathname.split("/").filter((segment) => segment);
@@ -16,6 +17,7 @@ export default function BreadCrumb() {
             Home
           </Link>
         </li>
+        {/* Dinamically renders the path */}
         {segments.map((segment, index) => {
           const href = `/${segments.slice(0, index + 1).join("/")}`;
           const isLast = index === segments.length - 1;
@@ -34,7 +36,7 @@ export default function BreadCrumb() {
                   fill="#E2E2E2"
                 />
               </svg>
-
+              {/* if is the last part of the link doesnt add a Link otherway the path is a link */}
               {isLast ? (
                 <span className="text-gray-500">{segment}</span>
               ) : (
